@@ -1,0 +1,2 @@
+# Trend of Currency
+ 
