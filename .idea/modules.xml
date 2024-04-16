@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" filepath="$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Trend-of-Currency.iml" filepath="$PROJECT_DIR$/.idea/Trend-of-Currency.iml" />
       <module fileurl="file://$PROJECT_DIR$/../calculator/.idea/calculator.iml" filepath="$PROJECT_DIR$/../calculator/.idea/calculator.iml" />
       <module fileurl="file://$PROJECT_DIR$/../unitconverter-after-deadline-/.idea/unitconverter-after-deadline-.iml" filepath="$PROJECT_DIR$/../unitconverter-after-deadline-/.idea/unitconverter-after-deadline-.iml" />
