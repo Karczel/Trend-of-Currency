@@ -11,7 +11,7 @@ class Page2(tk.Frame):
         self.big_frame = tk.Frame(self)
         #go back button
         self.frame1 = tk.Frame(self.big_frame)
-        self.go_back = tk.Button(self.frame1,text="go back")
+        self.go_back = tk.Button(self.frame1,text="go back",command=self.go_back)
 
         #graph space
         self.label1 = tk.Label(self.frame1,text='chart/graph area')
@@ -33,18 +33,20 @@ class Page2(tk.Frame):
 
         #treeview
         self.frame3 = tk.Frame(self)
-        self.treeview = ttk.Treeview(self.frame3,columns=("size", "lastmod"))
+        self.treeview = ttk.Treeview(self.frame3,columns=("exchange rate", "future","rating"))
         self.treeview.column("#0",minwidth=100,stretch=0)
-        self.treeview.column("size", minwidth=100, stretch=0)
-        self.treeview.column("lastmod", minwidth=100, stretch=0)
-        self.treeview.heading("#0", text="File")
-        self.treeview.heading("size", text="Size")
-        self.treeview.heading("lastmod", text="Last modification")
+        self.treeview.column("exchange rate", minwidth=100, stretch=0)
+        self.treeview.column("future", minwidth=100, stretch=0)
+        self.treeview.column("rating", minwidth=100, stretch=0)
+        self.treeview.heading("#0", text="Currency")
+        self.treeview.heading("exchange rate", text="Exchange Rate")
+        self.treeview.heading("future", text="Future")
+        self.treeview.heading("rating", text="Rating")
         self.treeview.insert(
             "",
             tk.END,
             text="README.txt",
-            values=("850 bytes", "18:30")
+            values=("850 bytes", "18:30","place holder")
         )
         # self.treeview.insert(
         #     "",
@@ -54,6 +56,7 @@ class Page2(tk.Frame):
         # )
         # exchange rate from df
         # future from whether trend in last year (2019) is positive or negative
+        #by average get_trend(column_name, df) in year 2019
         # rating from rating of similarity
 
         #layout
@@ -83,6 +86,21 @@ class Page2(tk.Frame):
         return selected, chooser
 
     def convert_handler(self):
+        pass
+
+    def update_currency(self):
+        # get index of list in string list, then change var to that index
+        #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
+        pass
+
+    def update_image(self):
+        #update chart/graph
+        pass
+
+    def go_back(self):
+        self.master.p1.show()
+
+    def change_page(self):
         pass
 
     def show(self):

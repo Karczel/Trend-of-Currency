@@ -46,12 +46,17 @@ def get_df():
     # ---Data Frame is ready for use (df)
     return df
 
-def get_rating(column_name,df):
+
+def get_trend(column_name, df):
     def calc_slope(x):
         slope = np.polyfit(range(len(x)), x, 1)[0]
         return slope
 
-    result = df[df.columns[1:]].rolling(31536000, min_periods=2).apply(calc_slope)
+    return df[df.columns[1:]].rolling(31536000, min_periods=2).apply(calc_slope)
+
+
+def get_rating(column_name, df):
+    result = get_trend(column_name, df)
 
     def assign_rating(base_value, other_value):
         base_sign = 1 if base_value >= 0 else -1

@@ -13,21 +13,42 @@ class Page1(tk.Frame):
         self.frame = super(Page1,self)
         self.frame1 = tk.Frame(self)
         self.currency_list = ["a","b","c"]
-        self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.do_nothing)
+        self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.update_currency)
         self.e_list = [i for i in enumerate(self.currency_list)]
 
         #normal treeview
-        self.treeview = ttk.Treeview(self,columns=("size", "lastmod"))
-        self.treeview.heading("#0", text="File")
-        self.treeview.heading("size", text="Size")
-        self.treeview.heading("lastmod", text="Last modification")
+        self.treeview = ttk.Treeview(self,columns=("exchange rate", "future","rating"))
+        self.treeview.column("#0",minwidth=100,stretch=0)
+        self.treeview.column("exchange rate", minwidth=100, stretch=0)
+        self.treeview.column("future", minwidth=100, stretch=0)
+        self.treeview.column("rating", minwidth=100, stretch=0)
+        self.treeview.heading("#0", text="Currency")
+        self.treeview.heading("exchange rate", text="Exchange Rate")
+        self.treeview.heading("future", text="Future")
+        self.treeview.heading("rating", text="Rating")
+
+
         self.treeview.insert(
             "",
             tk.END,
             text="README.txt",
-            values=("850 bytes", "18:30")
+            values=("850 bytes", "18:30","place holder")
         )
+
+        # self.treeview.insert(
+        #     "",
+        #     tk.END,
+        #     text=column,
+        #     values=(exchange rate, future ,rating)
+        # )
+        # exchange rate from df
+        # future from whether trend in last year (2019) is positive or negative
+        # by average get_trend(column_name, df) in year 2019
+        # rating from rating of similarity
+
         #linked tree view
+
+        self.treeview.bind("<1>", self.change_page)
 
         #layout
         self.chooser.pack()
@@ -45,9 +66,6 @@ class Page1(tk.Frame):
         chooser.bind('<<ComboboxSelected>>')
         return selected, chooser
 
-    def do_nothing(self):
-        pass
-
     def filter_currency(self,list1,list2):
         return list(filter(lambda x: list1[x] in list2, range(len(list1))))
 
@@ -55,6 +73,9 @@ class Page1(tk.Frame):
         # get index of list in string list, then change var to that index
         #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
         pass
+
+    def change_page(self, event):
+        self.master.p2.show()
 
     def show(self):
         self.lift()
