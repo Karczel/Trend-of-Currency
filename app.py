@@ -1,10 +1,7 @@
-import tkinter as tk
 from ui import UI
-
-def main():
-    root = tk.Tk()
-    app = UI(root)
-    app.mainloop()
+from page1 import Page1
+from page2 import Page2
 
 if __name__ == "__main__":
-    main()
+    main = UI()
+    main.run()
