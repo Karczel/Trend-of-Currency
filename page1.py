@@ -14,13 +14,23 @@ class Page1(tk.Frame):
         self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.do_nothing)
         self.e_list = [i for i in enumerate(self.currency_list)]
 
-        #testing
-        self.label = tk.Label(self, text="page 1")
+        #normal treeview
+        self.treeview = ttk.Treeview(self,columns=("size", "lastmod"))
+        self.treeview.heading("#0", text="File")
+        self.treeview.heading("size", text="Size")
+        self.treeview.heading("lastmod", text="Last modification")
+        self.treeview.insert(
+            "",
+            tk.END,
+            text="README.txt",
+            values=("850 bytes", "18:30")
+        )
+        #linked tree view
 
         #layout
         self.chooser.pack()
-        self.label.pack()
-
+        self.frame1.pack()
+        self.treeview.pack(fill=tk.X, expand=True)
 
     def load_functions(self, lst, frame,function):
         """Load units of the requested unittype into the comboboxes."""
