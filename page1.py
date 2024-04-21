@@ -3,8 +3,8 @@ from tkinter import ttk
 from math import *
 
 
-class Page1:
-    def __init__(self):
+class Page1(tk.Frame):
+    def __init__(self, **kwargs):
         super().__init__()
         self.init_components()
 
@@ -12,7 +12,15 @@ class Page1:
         self.frame1 = tk.Frame(self)
         self.currency_list = ["a","b","c"]
         self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.do_nothing)
-        self.e_list = [i for i in enumerate(self.currency_list)
+        self.e_list = [i for i in enumerate(self.currency_list)]
+
+        #testing
+        self.label = tk.Label(self, text="page 1")
+
+        #layout
+        self.chooser.pack()
+        self.label.pack()
+
 
     def load_functions(self, lst, frame,function):
         """Load units of the requested unittype into the comboboxes."""
@@ -34,4 +42,7 @@ class Page1:
     def update_currency(self):
         # get index of list in string list, then change var to that index
         #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
-        
+        pass
+
+    def show(self):
+        self.lift()
