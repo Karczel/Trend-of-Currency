@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$USER_HOME$/PycharmProjects/3DPython/.idea/3DPython.iml" filepath="$USER_HOME$/PycharmProjects/3DPython/.idea/3DPython.iml" />
       <module fileurl="file://$USER_HOME$/PycharmProjects/CanvasandAnimation/.idea/CanvasandAnimation.iml" filepath="$USER_HOME$/PycharmProjects/CanvasandAnimation/.idea/CanvasandAnimation.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Object life cycle/.idea/Object life cycle.iml" filepath="$PROJECT_DIR$/../Object life cycle/.idea/Object life cycle.iml" />
       <module fileurl="file://$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" filepath="$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Trend-of-Currency.iml" filepath="$PROJECT_DIR$/.idea/Trend-of-Currency.iml" />
       <module fileurl="file://$PROJECT_DIR$/../calculator/.idea/calculator.iml" filepath="$PROJECT_DIR$/../calculator/.idea/calculator.iml" />

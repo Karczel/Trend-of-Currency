@@ -1,11 +1,13 @@
 import tkinter as tk
 from page1 import Page1
 from page2 import Page2
+from data_handling import get_rating
 
 class UI(tk.Tk):
-    def __init__(self):
+    def __init__(self,df):
         """initialize ui"""
         super().__init__()
+        self.df = df
         self.init_components()
 
     def init_components(self):

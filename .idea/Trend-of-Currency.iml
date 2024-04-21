@@ -11,5 +11,6 @@
     <orderEntry type="module" module-name="ijroag;g" />
     <orderEntry type="module" module-name="3DPython" />
     <orderEntry type="module" module-name="CanvasandAnimation" />
+    <orderEntry type="module" module-name="Object life cycle" />
   </component>
 </module>

@@ -84,7 +84,7 @@ def assign_rating(base_value, other_value):
         return -1
   return 0
 
-print(result)
+# print(result)
 
 # Australian currency as base to compare to
 # ratings_df = pd.DataFrame(index=df.index, columns=df.columns[1:])
@@ -98,11 +98,12 @@ print(result)
 # this is ratings compared to us currency
 # print(ratings_df)
 #---compared to any other currency:
+column_name = 'US$'
 ratings_df = pd.DataFrame(index=df.index, columns=df.columns[1:])
 for idx, row in result.iterrows():
-    base_value = row['THAILAND - BAHT/US$']
+    base_value = row[column_name]
     for col in result.columns:
-        if col != 'THAILAND - BAHT/US$':
+        if col != column_name:
             other_value = row[col]
             rating = assign_rating(base_value, other_value)
             ratings_df.at[idx, col] = rating
