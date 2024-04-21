@@ -2,9 +2,11 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/PycharmProjects/3DPython/.idea/3DPython.iml" filepath="$USER_HOME$/PycharmProjects/3DPython/.idea/3DPython.iml" />
       <module fileurl="file://$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" filepath="$USER_HOME$/PycharmProjects/TkinterStuff/.idea/TkinterStuff.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/Trend-of-Currency.iml" filepath="$PROJECT_DIR$/.idea/Trend-of-Currency.iml" />
       <module fileurl="file://$PROJECT_DIR$/../calculator/.idea/calculator.iml" filepath="$PROJECT_DIR$/../calculator/.idea/calculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../numpy_array/.idea/ijroag;g.iml" filepath="$PROJECT_DIR$/../numpy_array/.idea/ijroag;g.iml" />
       <module fileurl="file://$PROJECT_DIR$/../midterm-Karczel/.idea/midterm-Karczel.iml" filepath="$PROJECT_DIR$/../midterm-Karczel/.idea/midterm-Karczel.iml" />
       <module fileurl="file://$PROJECT_DIR$/../unitconverter-after-deadline-/.idea/unitconverter-after-deadline-.iml" filepath="$PROJECT_DIR$/../unitconverter-after-deadline-/.idea/unitconverter-after-deadline-.iml" />
     </modules>

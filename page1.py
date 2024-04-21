@@ -34,3 +34,4 @@ class Page1:
     def update_currency(self):
         # get index of list in string list, then change var to that index
         #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
+        
