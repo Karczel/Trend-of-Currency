@@ -3,12 +3,11 @@ import random
 import tkinter as tk
 from tkinter import ttk
 from threading import Thread
-from data_handling import *
 
 
 
 
-class Loading_screen(ttk.Frame):
+class App(ttk.Frame):
 
 
     def __init__(self, parent):
@@ -41,6 +40,22 @@ class Loading_screen(ttk.Frame):
         self.status1.grid(row=1, column=0, sticky="wn", padx=10)
         self.start1.grid(row=0, column=1, rowspan=2, padx=10, pady=10)
 
+
+        # subframe for Task 2
+        self.frame2 = ttk.LabelFrame(self, text="Task 2")
+        self.frame2.grid(row=1, column=0, sticky="news", padx=5, pady=5)
+        self.frame2.rowconfigure(0, weight=1)
+        self.frame2.rowconfigure(1, weight=1)
+        self.frame2.columnconfigure(0, weight=1)
+        self.bar2 = ttk.Progressbar(self.frame2, length=500, mode="indeterminate")
+        self.status2 = ttk.Label(self.frame2, text="Stopped")
+        self.start2 = ttk.Button(self.frame2, text="Start",
+                                 command=self.run_task2)
+        self.bar2.grid(row=0, column=0, sticky="sew", padx=10)
+        self.status2.grid(row=1, column=0, sticky="wn", padx=10)
+        self.start2.grid(row=0, column=1, rowspan=2, padx=10, pady=10)
+
+
         self.quit = ttk.Button(self, text="Quit", command=root.destroy)
         self.quit.grid(row=2, column=0, padx=5, pady=5, sticky="s")
 
@@ -69,14 +84,32 @@ class Loading_screen(ttk.Frame):
         self.status1.config(text="Done.")
         self.start1.config(state="enabled")  # re-enable Start button
 
-    def loading(self):
-        for child in self.winfo_children():
-            child.destroy()
-        loading_label = tk.Label
+
+    def run_task2(self):
+        print("Running task 2...")
+        self.task2_thread = Thread(target=self.task2)
+        self.task2_thread.start()
+        self.status2.config(text="Running...")
+        self.start2.config(state="disabled")
+        self.bar2.start()
+        self.after(10, self.check_task2)
+
+
+    def check_task2(self):   # check task 2 regularly whether it has completed
+        if self.task2_thread.is_alive():
+            self.after(10, self.check_task2)
+        else:
+            self.status2.config(text="Done.")
+            self.start2.config(state="enabled")
+            self.bar2.stop()
+
+
+    def task2(self):   # simulate indeterminate long-running task
+        time.sleep(random.randrange(2, 5))
 
 
 if __name__ == "__main__":
     root = tk.Tk()
     root.title("Long-Running Tasks")
-    app = Loading_screen(root)
+    app = App(root)
     root.mainloop()
