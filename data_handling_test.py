@@ -9,8 +9,9 @@ from pandas.plotting import scatter_matrix
 
 df = pd.read_csv('Foreign_Exchange_Rates.csv')
 
-# add US column
-df['US$'] = 1.0
+# add US column after time series
+df.insert(1, 'US$', 1.0)
+# df['US$'] = 1.0
 
 # replace 'ND' as NULL
 df = df.replace(['ND'], value=np.NaN)
@@ -83,13 +84,27 @@ def assign_rating(base_value, other_value):
         return -1
   return 0
 
+print(result)
+
 # Australian currency as base to compare to
+# ratings_df = pd.DataFrame(index=df.index, columns=df.columns[1:])
+# for idx, row in result.iterrows():
+#     base_value = row['US$']
+#     for col in result.columns[1:]:
+#         other_value = row[col]
+#         rating = assign_rating(base_value, other_value)
+#         ratings_df.at[idx, col] = rating
+
+# this is ratings compared to us currency
+# print(ratings_df)
+#---compared to any other currency:
 ratings_df = pd.DataFrame(index=df.index, columns=df.columns[1:])
 for idx, row in result.iterrows():
-    base_value = row['US$']
-    for col in result.columns[1:]:
-        other_value = row[col]
-        rating = assign_rating(base_value, other_value)
-        ratings_df.at[idx, col] = rating
+    base_value = row['THAILAND - BAHT/US$']
+    for col in result.columns:
+        if col != 'THAILAND - BAHT/US$':
+            other_value = row[col]
+            rating = assign_rating(base_value, other_value)
+            ratings_df.at[idx, col] = rating
 
 print(ratings_df)

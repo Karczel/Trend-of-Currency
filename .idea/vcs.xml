@@ -4,5 +4,6 @@
     <mapping directory="" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../midterm-Karczel" vcs="Git" />
     <mapping directory="$PROJECT_DIR$/../unitconverter-after-deadline-" vcs="Git" />
+    <mapping directory="$USER_HOME$/PycharmProjects/CanvasandAnimation" vcs="Git" />
   </component>
 </project>
