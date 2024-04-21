@@ -17,7 +17,18 @@ class Page2(tk.Frame):
 
         # exchange
         self.frame2 = tk.Frame(self.big_frame)
-        self.label2 = tk.Label(self.frame2,text='exchange a -> b')
+        self.a = tk.StringVar()
+        self.b = tk.StringVar()
+
+        self.a_label = tk.Label(self.frame2,text='a')
+        self.a_field = tk.Entry(self.frame2,textvariable=self.a)
+        self.equal_label = tk.Label(self.frame2,text="=")
+        self.b_label = tk.Label(self.frame2, text='b')
+        self.b_field = tk.Entry(self.frame2,textvariable=self.b)
+
+        #Enter bind
+        self.a_field.bind('<Return>', self.convert_handler)
+        self.b_field.bind('<Return>', self.convert_handler)
 
         #treeview
         self.frame3 = tk.Frame(self)
@@ -35,10 +46,16 @@ class Page2(tk.Frame):
             values=("850 bytes", "18:30")
         )
 
+        #layout
+        padding = {'padx': 10, 'pady': 10}
         self.go_back.pack(side="left")
         self.label1.pack(side="left")
         self.frame1.pack(fill=tk.X,expand=True)
-        self.label2.pack(side="left")
+        self.a_label.pack(side="left")
+        self.a_field.pack(side="left")
+        self.equal_label.pack(side="left")
+        self.b_label.pack(side="left")
+        self.b_field.pack(side="left")
         self.frame2.pack(fill=tk.X,expand=True)
         self.big_frame.pack(side="left",fill=tk.X,expand=True)
         self.treeview.pack(anchor="w",fill=tk.Y, side="right")
@@ -54,6 +71,9 @@ class Page2(tk.Frame):
         chooser.current(newindex=0)
         chooser.bind('<<ComboboxSelected>>', function)
         return selected, chooser
+
+    def convert_handler(self):
+        pass
 
     def show(self):
         self.lift()
