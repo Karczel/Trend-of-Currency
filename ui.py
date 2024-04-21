@@ -14,8 +14,8 @@ class UI(tk.Tk):
         self.wm_geometry("1000x800")
 
         self.main_frame = tk.Frame(self)
-        self.p1 = Page1()
-        self.p2 = Page2()
+        self.p1 = Page1(self.df)
+        self.p2 = Page2(self.df)
 
         buttonframe = tk.Frame(self)
         container = tk.Frame(self)

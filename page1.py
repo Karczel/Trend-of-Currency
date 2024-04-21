@@ -4,11 +4,13 @@ from math import *
 
 
 class Page1(tk.Frame):
-    def __init__(self, **kwargs):
+    def __init__(self,df, **kwargs):
         super().__init__()
+        self.df = df
         self.init_components()
 
     def init_components(self):
+        self.frame = super(Page1,self)
         self.frame1 = tk.Frame(self)
         self.currency_list = ["a","b","c"]
         self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.do_nothing)

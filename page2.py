@@ -2,8 +2,9 @@ import tkinter as tk
 from tkinter import ttk
 
 class Page2(tk.Frame):
-    def __init__(self, **kwargs):
+    def __init__(self,df, **kwargs):
         super().__init__()
+        self.df = df
         self.init_components()
 
     def init_components(self):
@@ -45,6 +46,15 @@ class Page2(tk.Frame):
             text="README.txt",
             values=("850 bytes", "18:30")
         )
+        # self.treeview.insert(
+        #     "",
+        #     tk.END,
+        #     text=column,
+        #     values=(exchange rate, future ,rating)
+        # )
+        # exchange rate from df
+        # future from whether trend in last year (2019) is positive or negative
+        # rating from rating of similarity
 
         #layout
         padding = {'padx': 10, 'pady': 10}
