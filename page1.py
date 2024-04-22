@@ -33,7 +33,7 @@ class Page1(tk.Frame):
                 "",
                 tk.END,
                 text=i,
-                values=(self.df.tail(1)[i], "18:30", self.rating.mode().at[0,i])
+                values=(self.df[i].iat[-1], "18:30", self.rating.mode().at[0,i])
             )
 
         # self.treeview.insert(

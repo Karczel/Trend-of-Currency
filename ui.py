@@ -8,6 +8,7 @@ class UI(tk.Tk):
         """initialize ui"""
         super().__init__()
         self.df = df
+        # self.loading()
         self.init_components()
 
     def init_components(self):
@@ -25,6 +26,9 @@ class UI(tk.Tk):
 
         self.p1.show()
         self.main_frame.pack()
+
+    def loading(self):
+        pass
 
     def run(self):
         self.mainloop()

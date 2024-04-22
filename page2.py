@@ -59,7 +59,7 @@ class Page2(tk.Frame):
                 "",
                 tk.END,
                 text=i,
-                values=(self.df.tail(1)[i], "18:30", self.rating.mode().at[0, i])
+                values=(self.df[i].iat[-1], "18:30", self.rating.mode().at[0, i])
             )
         # self.treeview.insert(
         #     "",
@@ -71,6 +71,8 @@ class Page2(tk.Frame):
         # future from whether trend in last year (2019) is positive or negative
         #by average get_trend(column_name, df) in year 2019
         # rating from rating of similarity
+
+        self.treeview.bind("<1>", self.update_currency())
 
         #layout
         padding = {'padx': 10, 'pady': 10}
@@ -105,6 +107,7 @@ class Page2(tk.Frame):
     def update_currency(self, *args):
         # get index of list in string list, then change var to that index
         #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
+        self.update_image()
         pass
 
     def update_image(self, *args):
