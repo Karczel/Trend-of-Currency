@@ -18,7 +18,7 @@ class Page1(tk.Frame):
         self.b_currency = self.master.b_currency
 
         self.frame1 = tk.Frame(self)
-        self.display = [self.df.columns[1:]]
+        self.display = list(self.df.columns[1:])
         self.choice, self.chooser = self.load_functions(self.frame1,self.display,self.update_currency)
 
         #treeview
@@ -74,13 +74,11 @@ class Page1(tk.Frame):
     def filter_currency(self,list1,list2):
         return list(filter(lambda x: list1[x] in list2, range(len(list1))))
 
-    def update_currency(self):
-        # get index of list in string list, then change var to that index
-        #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
-        pass
+    def update_currency(self,*args):
+        self.a_currency = self.choice.get()
 
     def change_page(self, event):
-        self.master.a_currency = self.treeview.selection()[0]
+        self.master.b_currency = self.treeview.selection()[0]
         self.master.p2.show()
 
     def show(self):

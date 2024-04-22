@@ -121,7 +121,8 @@ class Page2(tk.Frame):
         self.output.config(text=self.b.get())
 
     def update_currency(self, event):
-        self.b_currency = self.treeview.selection()["currency"]
+        self.b_currency = self.treeview.selection()[0]
+        print(self.treeview.selection()[0])
         exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
         self.update_image()
