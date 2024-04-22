@@ -1,5 +1,9 @@
 # Trend of Currency
 
+Ui to see similarity in currency trend to see connections between each currency
+
+Dataset: Foreign Exchange Rates 2000-2019
+Link: https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019
 
 
 References:
