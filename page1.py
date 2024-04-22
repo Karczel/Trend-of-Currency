@@ -12,10 +12,14 @@ class Page1(tk.Frame):
         self.init_components()
 
     def init_components(self):
-        self.frame = super(Page1,self)
+        self.last_row = self.df.iloc[-1]
+
+        self.a_currency = self.master.a_currency
+        self.b_currency = self.master.b_currency
+
         self.frame1 = tk.Frame(self)
-        self.currency_list = ["a","b","c"]
-        self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.update_currency)
+        self.display = [self.df.columns[1:]]
+        self.choice, self.chooser = self.load_functions(self.frame1,self.display,self.update_currency)
 
         #treeview
         self.treeview = ttk.Treeview(self,columns=("exchange rate", "future","rating"))
@@ -29,12 +33,13 @@ class Page1(tk.Frame):
         self.treeview.heading("rating", text="Rating")
 
         for i in self.df.columns[1:]:
-            self.treeview.insert(
-                "",
-                tk.END,
-                text=i,
-                values=(self.df[i].iat[-1], "18:30", self.rating.mode().at[0,i])
-            )
+            if i != self.master.a_currency:
+                self.treeview.insert(
+                    "",
+                    tk.END,
+                    text=i,
+                    values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
+                )
 
         # self.treeview.insert(
         #     "",
@@ -48,14 +53,14 @@ class Page1(tk.Frame):
         # rating from rating of similarity
 
         # bind
-        self.treeview.bind("<1>", self.change_page)
+        self.treeview.bind("<<TreeviewSelect>>", self.change_page)
 
         #layout
         self.chooser.pack()
         self.frame1.pack()
         self.treeview.pack(fill=tk.BOTH, expand=True)
 
-    def load_functions(self, lst, frame,function):
+    def load_functions(self, frame,lst,function):
         """Load units of the requested unittype into the comboboxes."""
         selected = tk.StringVar()
         # put the unit names (strings) in the comboboxes
@@ -75,6 +80,7 @@ class Page1(tk.Frame):
         pass
 
     def change_page(self, event):
+        self.master.a_currency = self.treeview.selection()[0]
         self.master.p2.show()
 
     def show(self):
