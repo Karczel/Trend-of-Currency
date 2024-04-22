@@ -42,6 +42,17 @@ class Page2(tk.Frame):
         self.treeview.heading("exchange rate", text="Exchange Rate")
         self.treeview.heading("future", text="Future")
         self.treeview.heading("rating", text="Rating")
+
+        #get df[last] for exchange rate,
+        #currency - > column
+        #exchange rate other currency =
+        #us -> other
+        #1 us = other_rate other
+        # other1->other2
+        # 1 other1 = other2_rate/other1_rate other2
+        #
+
+
         self.treeview.insert(
             "",
             tk.END,
