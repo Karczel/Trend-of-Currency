@@ -68,12 +68,13 @@ class Page2(tk.Frame):
         # rating -> from get_rating
 
         for i in self.df.columns[1:]:
-            self.treeview.insert(
-                "",
-                tk.END,
-                text=i,
-                values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
-            )
+            if i != self.master.a_currency:
+                self.treeview.insert(
+                    "",
+                    tk.END,
+                    text=i,
+                    values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
+                )
         # self.treeview.insert(
         #     "",
         #     tk.END,
@@ -131,7 +132,7 @@ class Page2(tk.Frame):
         exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
         try:
             self.b.set(float(self.a.get()) * exchange_rate)
-            self.output.config(text=self.b)
+            self.output.config(text=self.b.get())
         except ValueError:
             pass
         self.b_label.config(text=self.b_currency)
