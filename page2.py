@@ -50,15 +50,16 @@ class Page2(tk.Frame):
         #1 us = other_rate other
         # other1->other2
         # 1 other1 = other2_rate/other1_rate other2
-        #
+        #future -> from year: up or down, represent with arrow
+        #rating -> from get_rating
 
-
-        self.treeview.insert(
-            "",
-            tk.END,
-            text="README.txt",
-            values=("850 bytes", "18:30","place holder")
-        )
+        for i in self.df.columns:
+            self.treeview.insert(
+                "",
+                tk.END,
+                text="README.txt",
+                values=("850 bytes", "18:30", "place holder")
+            )
         # self.treeview.insert(
         #     "",
         #     tk.END,
