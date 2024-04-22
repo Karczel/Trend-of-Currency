@@ -102,6 +102,7 @@ class Page2(tk.Frame):
 
     def convert_handler(self, *args):
         self.b.set(float(self.a.get())*2)
+        # 2 = exchange rate from a -> b
         self.output.config(text=self.b.get())
 
     def update_currency(self, *args):
