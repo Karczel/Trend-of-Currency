@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-from data_handling import get_rating
+from data_handling import*
 
 
 class Page2(tk.Frame):
@@ -66,6 +66,7 @@ class Page2(tk.Frame):
         # 1 other1 = other2_rate/other1_rate other2
         # future -> from year: up or down, represent with arrow
         # rating -> from get_rating
+        future = get_trend()
 
         for i in self.df.columns[1:]:
             if i != self.master.a_currency:
@@ -108,7 +109,7 @@ class Page2(tk.Frame):
         """Load units of the requested unittype into the comboboxes."""
         selected = tk.StringVar()
         # put the unit names (strings) in the comboboxes
-        chooser = ttk.Combobox(frame, textvariable=selected, font=('Times New Roman', 25, 'normal'),
+        chooser = ttk.Combobox(frame, state='readonly',textvariable=selected, font=('Times New Roman', 25, 'normal'),
                                postcommand=function)
         # and select which unit to display
         chooser['values'] = lst
@@ -126,7 +127,7 @@ class Page2(tk.Frame):
         self.b.set(float(self.a.get()) * exchange_rate)
         self.output.config(text=self.b.get())
 
-    def update_currency(self, event):
+    def update_currency(self, *args):
         self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
         self.update()
         exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
