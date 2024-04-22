@@ -1,7 +1,7 @@
 import tkinter as tk
 from page1 import Page1
 from page2 import Page2
-from data_handling import get_rating
+
 
 class UI(tk.Tk):
     def __init__(self,df):
@@ -11,7 +11,7 @@ class UI(tk.Tk):
         self.init_components()
 
     def init_components(self):
-        self.wm_geometry("1000x800")
+        self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
         self.p1 = Page1(self.df)

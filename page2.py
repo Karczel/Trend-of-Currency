@@ -1,10 +1,12 @@
 import tkinter as tk
 from tkinter import ttk
+from data_handling import get_rating
 
 class Page2(tk.Frame):
     def __init__(self,df, **kwargs):
         super().__init__()
         self.df = df
+        self.rating = get_rating('US$', self.df)
         self.init_components()
 
     def init_components(self):
@@ -25,19 +27,18 @@ class Page2(tk.Frame):
         self.a_field = tk.Entry(self.frame2,textvariable=self.a)
         self.equal_label = tk.Label(self.frame2,text="=")
         self.b_label = tk.Label(self.frame2, text='b')
-        self.b_field = tk.Entry(self.frame2,textvariable=self.b)
+        self.output = tk.Label(self.frame2, text="Enter value")
 
         #Enter bind
         self.a_field.bind('<Return>', self.convert_handler)
-        self.b_field.bind('<Return>', self.convert_handler)
 
         #treeview
         self.frame3 = tk.Frame(self)
         self.treeview = ttk.Treeview(self.frame3,columns=("exchange rate", "future","rating"))
-        self.treeview.column("#0",minwidth=100,stretch=0)
-        self.treeview.column("exchange rate", minwidth=100, stretch=0)
-        self.treeview.column("future", minwidth=100, stretch=0)
-        self.treeview.column("rating", minwidth=100, stretch=0)
+        self.treeview.column("#0",minwidth=1,stretch=0,anchor="center")
+        self.treeview.column("exchange rate", minwidth=1, stretch=0,anchor="center")
+        self.treeview.column("future", minwidth=1, stretch=0,anchor="center")
+        self.treeview.column("rating", minwidth=1, stretch=0,anchor="center")
         self.treeview.heading("#0", text="Currency")
         self.treeview.heading("exchange rate", text="Exchange Rate")
         self.treeview.heading("future", text="Future")
@@ -53,12 +54,12 @@ class Page2(tk.Frame):
         #future -> from year: up or down, represent with arrow
         #rating -> from get_rating
 
-        for i in self.df.columns:
+        for i in self.df.columns[1:]:
             self.treeview.insert(
                 "",
                 tk.END,
-                text="README.txt",
-                values=("850 bytes", "18:30", "place holder")
+                text=i,
+                values=(self.df.tail(1)[i], "18:30", self.rating.mode().at[0, i])
             )
         # self.treeview.insert(
         #     "",
@@ -76,11 +77,11 @@ class Page2(tk.Frame):
         self.go_back.pack(side="left")
         self.label1.pack(side="left")
         self.frame1.pack(fill=tk.X,expand=True)
-        self.a_label.pack(side="left")
         self.a_field.pack(side="left")
+        self.a_label.pack(side="left")
         self.equal_label.pack(side="left")
+        self.output.pack(side="left")
         self.b_label.pack(side="left")
-        self.b_field.pack(side="left")
         self.frame2.pack(fill=tk.X,expand=True)
         self.big_frame.pack(side="left",fill=tk.X,expand=True)
         self.treeview.pack(anchor="w",fill=tk.Y, side="right")
@@ -97,22 +98,23 @@ class Page2(tk.Frame):
         chooser.bind('<<ComboboxSelected>>', function)
         return selected, chooser
 
-    def convert_handler(self):
-        pass
+    def convert_handler(self, *args):
+        self.b.set(float(self.a.get())*2)
+        self.output.config(text=self.b.get())
 
-    def update_currency(self):
+    def update_currency(self, *args):
         # get index of list in string list, then change var to that index
         #list 1 would be ['a','b','c'] while list 2 reference columns in [a,b,c], ordered by index
         pass
 
-    def update_image(self):
+    def update_image(self, *args):
         #update chart/graph
         pass
 
     def go_back(self):
         self.master.p1.show()
 
-    def change_page(self):
+    def change_page(self, *args):
         pass
 
     def show(self):

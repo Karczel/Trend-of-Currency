@@ -1,12 +1,14 @@
 import tkinter as tk
 from tkinter import ttk
 from math import *
+from data_handling import get_rating
 
 
 class Page1(tk.Frame):
     def __init__(self,df, **kwargs):
         super().__init__()
         self.df = df
+        self.rating = get_rating('US$', self.df)
         self.init_components()
 
     def init_components(self):
@@ -14,26 +16,25 @@ class Page1(tk.Frame):
         self.frame1 = tk.Frame(self)
         self.currency_list = ["a","b","c"]
         self.choice, self.chooser = self.load_functions(self.currency_list,self.frame1,self.update_currency)
-        self.e_list = [i for i in enumerate(self.currency_list)]
 
-        #normal treeview
+        #treeview
         self.treeview = ttk.Treeview(self,columns=("exchange rate", "future","rating"))
-        self.treeview.column("#0",minwidth=100,stretch=0)
-        self.treeview.column("exchange rate", minwidth=100, stretch=0)
-        self.treeview.column("future", minwidth=100, stretch=0)
-        self.treeview.column("rating", minwidth=100, stretch=0)
+        self.treeview.column("#0",minwidth=100,anchor="center")
+        self.treeview.column("exchange rate", minwidth=100, anchor="center")
+        self.treeview.column("future", minwidth=100, anchor="center")
+        self.treeview.column("rating", minwidth=100,anchor="center")
         self.treeview.heading("#0", text="Currency")
         self.treeview.heading("exchange rate", text="Exchange Rate")
         self.treeview.heading("future", text="Future")
         self.treeview.heading("rating", text="Rating")
 
-
-        self.treeview.insert(
-            "",
-            tk.END,
-            text="README.txt",
-            values=("850 bytes", "18:30","place holder")
-        )
+        for i in self.df.columns[1:]:
+            self.treeview.insert(
+                "",
+                tk.END,
+                text=i,
+                values=(self.df.tail(1)[i], "18:30", self.rating.mode().at[0,i])
+            )
 
         # self.treeview.insert(
         #     "",
@@ -46,14 +47,13 @@ class Page1(tk.Frame):
         # by average get_trend(column_name, df) in year 2019
         # rating from rating of similarity
 
-        #linked tree view
-
+        # bind
         self.treeview.bind("<1>", self.change_page)
 
         #layout
         self.chooser.pack()
         self.frame1.pack()
-        self.treeview.pack(fill=tk.X, expand=True)
+        self.treeview.pack(fill=tk.BOTH, expand=True)
 
     def load_functions(self, lst, frame,function):
         """Load units of the requested unittype into the comboboxes."""

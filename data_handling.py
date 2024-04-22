@@ -35,6 +35,8 @@ def get_df():
                 if pd.notnull(nearest_before) and pd.notnull(nearest_after):
                     df.loc[i, col] = (float(nearest_before) + float(nearest_after)) / 2
 
+    # recursive:
+
     # ---convert dtypes of columns to correct type
     df['Time Serie'] = pd.to_datetime(df['Time Serie'])
     for i in df.columns[1:]:
@@ -83,4 +85,22 @@ def get_rating(column_name, df):
                 other_value = row[col]
                 rating = assign_rating(base_value, other_value)
                 ratings_df.at[idx, col] = rating
+
+    #recursive
+    # def helper_rating_1():
+    #     for idx, row in result.iterrows():
+    #         base_value = row[column_name]
+    #         return helper_rating_2()
+    #
+    #     return helper_rating_1()
+    #
+    # def helper_rating_2():
+    #     if col != column_name:
+    #         other_value = row[col]
+    #         rating = assign_rating(base_value, other_value)
+    #         ratings_df.at[idx, col] = rating
+    #         return helper_rating_2()
+    #     if col == last_col:
+    #         return None
+
     return ratings_df
