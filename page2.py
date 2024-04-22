@@ -33,10 +33,10 @@ class Page2(tk.Frame):
         self.a = tk.StringVar()
         self.b = tk.StringVar()
 
-        self.a_label = tk.Label(self.frame2, text='a')
+        self.a_label = tk.Label(self.frame2, text=self.a_currency)
         self.a_field = tk.Entry(self.frame2, textvariable=self.a)
         self.equal_label = tk.Label(self.frame2, text="=")
-        self.b_label = tk.Label(self.frame2, text='b')
+        self.b_label = tk.Label(self.frame2, text=self.b_currency)
         self.output = tk.Label(self.frame2, text="Enter value")
 
         # Enter bind
@@ -115,16 +115,26 @@ class Page2(tk.Frame):
         chooser.bind('<<ComboboxSelected>>')
         return selected, chooser
 
+    def update(self):
+        self.a_currency = self.master.a_currency
+        self.b_currency = self.master.b_currency
+
     def convert_handler(self, *args):
+        self.update()
         exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
         self.output.config(text=self.b.get())
 
     def update_currency(self, event):
-        self.b_currency = self.treeview.selection()[0]
-        print(self.treeview.selection()[0])
+        self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
+        self.update()
         exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
-        self.b.set(float(self.a.get()) * exchange_rate)
+        try:
+            self.b.set(float(self.a.get()) * exchange_rate)
+            self.output.config(text=self.b)
+        except ValueError:
+            pass
+        self.b_label.config(text=self.b_currency)
         self.update_image()
 
     def update_image(self, *args):

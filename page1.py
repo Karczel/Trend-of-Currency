@@ -76,9 +76,10 @@ class Page1(tk.Frame):
 
     def update_currency(self,*args):
         self.a_currency = self.choice.get()
+        print(self.master.a_currency)
 
     def change_page(self, event):
-        self.master.b_currency = self.treeview.selection()[0]
+        self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
         self.master.p2.show()
 
     def show(self):

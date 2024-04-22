@@ -15,8 +15,8 @@ class UI(tk.Tk):
         self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
-        self.a_currency = None
-        self.b_currency = None
+        self.a_currency = 'US$'
+        self.b_currency = 'US$'
         self.p1 = Page1(self.df)
         self.p2 = Page2(self.df)
 
