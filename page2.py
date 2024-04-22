@@ -85,7 +85,7 @@ class Page2(tk.Frame):
         # by average get_trend(column_name, df) in year 2019
         # rating from rating of similarity
 
-        self.treeview.bind("<<TreeviewSelect>>", self.update_currency())
+        self.treeview.bind("<<TreeviewSelect>>", self.update_currency)
 
         # layout
         padding = {'padx': 10, 'pady': 10}

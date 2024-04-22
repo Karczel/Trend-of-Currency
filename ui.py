@@ -15,11 +15,11 @@ class UI(tk.Tk):
         self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
+        self.a_currency = None
+        self.b_currency = None
         self.p1 = Page1(self.df)
         self.p2 = Page2(self.df)
 
-        self.a_currency = None
-        self.b_currency = None
         # Page 1 :combobox selected is a, treeview click is b
         # Page 2: a is fixed, treeview click is b
 
