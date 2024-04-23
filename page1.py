@@ -17,21 +17,8 @@ class Page1(tk.Frame):
         self.choice, self.chooser = self.load_functions(self.frame1,self.display,self.update_currency)
 
         self.treeview = self.master.create_treeview(self)
-        #treeview
 
-        # self.treeview.insert(
-        #     "",
-        #     tk.END,
-        #     text=column,
-        #     values=(exchange rate, future ,rating)
-        # )
-        # exchange rate from df
-        # future from whether trend in last year (2019) is positive or negative
-        # by average get_trend(column_name, df) in year 2019
-        # rating from rating of similarity
-
-        # bind
-        # self.chooser.bind('<<Combobox>>',self.update_currency)
+        #bind
         self.treeview.bind("<<TreeviewSelect>>", self.change_page)
 
         #layout

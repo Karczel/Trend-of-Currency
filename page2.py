@@ -3,6 +3,8 @@ import tkinter as tk
 from tkinter import ttk
 import customtkinter
 from data_handling import*
+from chart import*
+from graph import*
 
 
 class Page2(tk.Frame):
@@ -14,7 +16,7 @@ class Page2(tk.Frame):
 
     def init_components(self):
         # go_back button image
-        self.img = Image.open("S__1449996.png")
+        self.img = Image.open("arrow_left.png")
         new_size = 50
 
         self.resized_image = self.img.resize((new_size, new_size))
@@ -25,12 +27,17 @@ class Page2(tk.Frame):
         self.frame1 = tk.Frame(self.big_frame)
         self.go_back = customtkinter.CTkButton(self.frame1,image=self.imgtk, text='', width=30, height=30,compound=customtkinter.LEFT, command=self.go_back)
         # graph space
-        self.label1 = tk.Label(self.frame1, text='chart/graph area')
+        self.canvas = similarity_bar_graph(self.rating,self.frame1)
+        self.canvas_choice = {'bar graph':similarity_bar_graph(self.rating,self.frame1),
+                              'line graph':exchange_rate_line_graph(self.df,self.master.a_currency,self.master.b_currency,self.frame1),
+                             'Histogram':compare_histogram(self.df,self.master.a_currency,self.master.b_currency,self.frame1),
+                             'Corr. Heatmap':similarity_heatmap(self.rating,self.frame1),
+                             'Node Graph':'empty at the moment'}
 
         self.frame2 = tk.Frame(self.big_frame)
         #choose graph
         self.display = ['bar graph', 'line graph', 'Histogram', 'Corr. Heatmap', 'Node Graph']
-        self.choice, self.chooser = self.load_functions(self.frame2, self.display, self.update_currency)
+        self.choice, self.chooser = self.load_functions(self.big_frame, self.display, self.update_currency)
 
         # exchange
         self.a = tk.StringVar()
@@ -56,8 +63,8 @@ class Page2(tk.Frame):
 
         # layout
         padding = {'padx': 10, 'pady': 10}
-        self.go_back.pack(side="left")
-        self.label1.pack(side="left")
+        self.go_back.pack(anchor="nw" ,side="left")
+        self.canvas.get_tk_widget().pack()
         self.frame1.pack(fill=tk.X, expand=True)
         self.chooser.pack()
         self.a_field.pack(side="left")
@@ -94,21 +101,26 @@ class Page2(tk.Frame):
     def convert_handler(self, *args):
         self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
-        self.b.set(float(self.a.get()) * exchange_rate)
-        self.output.config(text="{:.3f}".format(float(self.b.get())))
-
+        try:
+            self.b.set(float(self.a.get()) * exchange_rate)
+            self.output.config(text="{:.3f}".format(float(self.b.get())),fg='black')
+        except ValueError:
+            self.output.config(text="ERROR",fg='red')
     def update_currency(self, *args):
-        self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-        self.small_update()
+        try:
+            self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
+            self.small_update()
+        except IndexError:
+            pass
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         try:
             self.b.set(float(self.a.get()) * exchange_rate)
-            self.output.config(text=self.b.get())
+            self.output.config(text="{:.3f}".format(float(self.b.get())),fg='black')
         except ValueError:
-            pass
+            self.output.config(text="ERROR", fg='red')
 
-    def update_image(self, *args):
-        # update chart/graph
+    def update_image(self):
+        self.canvas = self.canvas_choice[self.choice.get()]
         pass
 
     def go_back(self):

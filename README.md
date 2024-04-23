@@ -21,4 +21,6 @@ Draw graph: https://matplotlib.org/2.0.2/examples/user_interfaces/embedding_in_t
 
 Correct treeview output:https://stackoverflow.com/questions/34166030/obtaining-last-value-of-dataframe-column-without-index
 
-Image Button:
+Image Button:https://www.youtube.com/watch?v=6VbzpWL49Q4
+
+Chart in tkinter window:

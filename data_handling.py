@@ -4,6 +4,7 @@ import numpy as np
 
 def get_df():
     df = pd.read_csv('Foreign_Exchange_Rates.csv')
+    df.columns = df.columns.str.replace('/US$', '')
     df.insert(1, 'US$', 1.0)
     df = df.replace(['ND'], value=np.NaN)
 
