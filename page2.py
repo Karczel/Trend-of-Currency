@@ -1,6 +1,7 @@
-from PIL import Image
+from PIL import Image, ImageTk
 import tkinter as tk
 from tkinter import ttk
+import customtkinter
 from data_handling import*
 
 
@@ -14,24 +15,24 @@ class Page2(tk.Frame):
     def init_components(self):
         # go_back button image
         self.img = Image.open("S__1449996.png")
-        new_size = 100
+        new_size = 50
 
-        resized_image = self.img.resize((new_size, new_size))
-        self.imgtk = tk.PhotoImage(resized_image)
+        self.resized_image = self.img.resize((new_size, new_size))
+        self.imgtk = ImageTk.PhotoImage(self.resized_image)
 
         self.big_frame = tk.Frame(self)
         # go back button
         self.frame1 = tk.Frame(self.big_frame)
-        self.go_back = tk.Button(self.frame1, image=self.imgtk, text='go back', compound=tk.LEFT, command=self.go_back)
-
+        self.go_back = customtkinter.CTkButton(self.frame1,image=self.imgtk, text='', width=30, height=30,compound=customtkinter.LEFT, command=self.go_back)
         # graph space
         self.label1 = tk.Label(self.frame1, text='chart/graph area')
+
+        self.frame2 = tk.Frame(self.big_frame)
         #choose graph
         self.display = ['bar graph', 'line graph', 'Histogram', 'Corr. Heatmap', 'Node Graph']
-        self.choice, self.chooser = self.load_functions(self.frame1, self.display, self.update_currency)
+        self.choice, self.chooser = self.load_functions(self.frame2, self.display, self.update_currency)
 
         # exchange
-        self.frame2 = tk.Frame(self.big_frame)
         self.a = tk.StringVar()
         self.b = tk.StringVar()
 
@@ -57,8 +58,8 @@ class Page2(tk.Frame):
         padding = {'padx': 10, 'pady': 10}
         self.go_back.pack(side="left")
         self.label1.pack(side="left")
-        self.chooser.pack()
         self.frame1.pack(fill=tk.X, expand=True)
+        self.chooser.pack()
         self.a_field.pack(side="left")
         self.a_label.pack(side="left")
         self.equal_label.pack(side="left")
@@ -94,7 +95,7 @@ class Page2(tk.Frame):
         self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
-        self.output.config(text="{:.3f}".format(self.b.get()))
+        self.output.config(text="{:.3f}".format(float(self.b.get())))
 
     def update_currency(self, *args):
         self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
