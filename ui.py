@@ -19,11 +19,8 @@ class UI(tk.Tk):
         self.main_frame = tk.Frame(self)
         self.a_currency = 'US$'
         self.b_currency = 'US$'
-        self.last_row = self.df.iloc[-1]
+        self.last_row = self.df[self.df.columns[1:]].iloc[-1]
         self.rating = get_rating('US$', self.df)
-
-        #make treeview
-        self.create_treeview()
 
         #pages
         self.p1 = Page1(self.df)
@@ -42,36 +39,38 @@ class UI(tk.Tk):
         self.main_frame.pack()
 
     def create_treeview(self,root):
-        self.treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
-        self.treeview.column("#0", minwidth=100, anchor="center")
-        self.treeview.column("exchange rate", minwidth=100, anchor="center")
-        self.treeview.column("future", minwidth=100, anchor="center")
-        self.treeview.column("rating", minwidth=100, anchor="center")
-        self.treeview.heading("#0", text="Currency")
-        self.treeview.heading("exchange rate", text="Exchange Rate")
-        self.treeview.heading("future", text="Future")
-        self.treeview.heading("rating", text="Rating")
-        self.insert_treeview()
+        treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
+        treeview.column("#0", minwidth=100, anchor="center")
+        treeview.column("exchange rate", minwidth=100, anchor="center")
+        treeview.column("future", minwidth=100, anchor="center")
+        treeview.column("rating", minwidth=100, anchor="center")
+        treeview.heading("#0", text="Currency")
+        treeview.heading("exchange rate", text="Exchange Rate")
+        treeview.heading("future", text="Future")
+        treeview.heading("rating", text="Rating")
+        self.insert_treeview(treeview)
+        return treeview
 
-    def insert_treeview(self):
+    def insert_treeview(self,treeview):
         for i in self.df.columns[1:]:
             if i != self.a_currency:
-                self.treeview.insert(
+                treeview.insert(
                     "",
                     tk.END,
                     text=i,
-                    values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
+                    values=("{:.3f}".format(self.last_row[i]), "18:30", self.rating.mode().at[0, i])
                 )
 
-    def update_treeview(self):
-        if len(self.treeview.get_children()) > 0:
-            for child in self.treeview.get_children():
-                self.treeview.delete(child)
-                self.last_row[1:] = self.last_row[1:].div(self.last_row[self.a_currency])
+    def update_treeview(self,treeview):
+        if len(treeview.get_children()) > 0:
+            for child in treeview.get_children():
+                treeview.delete(child)
+        replacement_last_row = self.last_row.div(self.last_row[self.a_currency], axis=0)
+        self.last_row = replacement_last_row
         self.rating = get_rating(self.a_currency,self.df)
-        self.insert_treeview()
+        self.insert_treeview(treeview)
 
-    def loading(self):
+    def loading_screen(self):
         pass
 
 

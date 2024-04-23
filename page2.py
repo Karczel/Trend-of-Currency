@@ -96,21 +96,24 @@ class Page2(tk.Frame):
         chooser.bind('<<ComboboxSelected>>')
         return selected, chooser
 
-    def update(self):
+    def small_update(self):
         self.a_label.config(text=self.master.a_currency)
         self.b_label.config(text=self.master.b_currency)
-        self.master.update_treeview()
         self.update_image()
 
+    def update(self):
+        self.small_update()
+        self.master.update_treeview(self.treeview)
+
     def convert_handler(self, *args):
-        self.update()
+        self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
         self.output.config(text=self.b.get())
 
     def update_currency(self, *args):
         self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-        self.update()
+        self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         try:
             self.b.set(float(self.a.get()) * exchange_rate)
