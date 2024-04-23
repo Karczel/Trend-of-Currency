@@ -23,16 +23,7 @@ class UI(tk.Tk):
         self.rating = get_rating('US$', self.df)
 
         #make treeview
-        self.treeview = ttk.Treeview(self, columns=("exchange rate", "future", "rating"))
-        self.treeview.column("#0", minwidth=100, anchor="center")
-        self.treeview.column("exchange rate", minwidth=100, anchor="center")
-        self.treeview.column("future", minwidth=100, anchor="center")
-        self.treeview.column("rating", minwidth=100, anchor="center")
-        self.treeview.heading("#0", text="Currency")
-        self.treeview.heading("exchange rate", text="Exchange Rate")
-        self.treeview.heading("future", text="Future")
-        self.treeview.heading("rating", text="Rating")
-        self.insert_treeview()
+        self.create_treeview()
 
         #pages
         self.p1 = Page1(self.df)
@@ -49,6 +40,18 @@ class UI(tk.Tk):
 
         self.p1.show()
         self.main_frame.pack()
+
+    def create_treeview(self,root):
+        self.treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
+        self.treeview.column("#0", minwidth=100, anchor="center")
+        self.treeview.column("exchange rate", minwidth=100, anchor="center")
+        self.treeview.column("future", minwidth=100, anchor="center")
+        self.treeview.column("rating", minwidth=100, anchor="center")
+        self.treeview.heading("#0", text="Currency")
+        self.treeview.heading("exchange rate", text="Exchange Rate")
+        self.treeview.heading("future", text="Future")
+        self.treeview.heading("rating", text="Rating")
+        self.insert_treeview()
 
     def insert_treeview(self):
         for i in self.df.columns[1:]:

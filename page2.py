@@ -28,10 +28,10 @@ class Page2(tk.Frame):
         self.a = tk.StringVar()
         self.b = tk.StringVar()
 
-        self.a_label = tk.Label(self.frame2, text=self.a_currency)
+        self.a_label = tk.Label(self.frame2, text=self.master.a_currency)
         self.a_field = tk.Entry(self.frame2, textvariable=self.a)
         self.equal_label = tk.Label(self.frame2, text="=")
-        self.b_label = tk.Label(self.frame2, text=self.b_currency)
+        self.b_label = tk.Label(self.frame2, text=self.master.b_currency)
         self.output = tk.Label(self.frame2, text="Enter value")
 
         # Enter bind
@@ -42,7 +42,7 @@ class Page2(tk.Frame):
 
         # treeview
         self.frame3 = tk.Frame(self)
-        self.treeview = self.master.treeview
+        self.treeview = self.master.create_treeview(self)
 
         # get df[last] for exchange rate,
         # currency - > column
@@ -124,9 +124,6 @@ class Page2(tk.Frame):
 
     def go_back(self):
         self.master.p1.show()
-
-    def change_page(self, *args):
-        pass
 
     def show(self):
         self.lift()

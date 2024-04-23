@@ -16,7 +16,7 @@ class Page1(tk.Frame):
         self.display = list(self.df.columns[1:])
         self.choice, self.chooser = self.load_functions(self.frame1,self.display,self.update_currency)
 
-        self.treeview = self.master.treeview
+        self.treeview = self.master.create_treeview(self)
         #treeview
 
         # self.treeview.insert(
