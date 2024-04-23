@@ -1,3 +1,4 @@
+from PIL import Image
 import tkinter as tk
 from tkinter import ttk
 from data_handling import*
@@ -11,11 +12,17 @@ class Page2(tk.Frame):
         self.init_components()
 
     def init_components(self):
-        # get last row
+        # go_back button image
+        self.img = Image.open("S__1449996.png")
+        new_size = 100
+
+        resized_image = self.img.resize((new_size, new_size))
+        self.imgtk = tk.PhotoImage(resized_image)
+
         self.big_frame = tk.Frame(self)
         # go back button
         self.frame1 = tk.Frame(self.big_frame)
-        self.go_back = tk.Button(self.frame1, text="go back", command=self.go_back)
+        self.go_back = tk.Button(self.frame1, image=self.imgtk, text='go back', compound=tk.LEFT, command=self.go_back)
 
         # graph space
         self.label1 = tk.Label(self.frame1, text='chart/graph area')
@@ -43,28 +50,6 @@ class Page2(tk.Frame):
         # treeview
         self.frame3 = tk.Frame(self)
         self.treeview = self.master.create_treeview(self)
-
-        # get df[last] for exchange rate,
-        # currency - > column
-        # exchange rate other currency =
-        # us -> other
-        # 1 us = other_rate other
-        # other1->other2
-        # 1 other1 = other2_rate/other1_rate other2
-        # future -> from year: up or down, represent with arrow
-        # rating -> from get_rating
-
-        # future = get_trend()
-        # self.treeview.insert(
-        #     "",
-        #     tk.END,
-        #     text=column,
-        #     values=(exchange rate, future ,rating)
-        # )
-        # exchange rate from df
-        # future from whether trend in last year (2019) is positive or negative
-        # by average get_trend(column_name, df) in year 2019
-        # rating from rating of similarity
 
         self.treeview.bind("<<TreeviewSelect>>", self.update_currency)
 
