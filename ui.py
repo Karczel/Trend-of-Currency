@@ -1,5 +1,8 @@
 import tkinter as tk
 from tkinter import ttk
+
+import pandas as pd
+
 from data_handling import*
 from page1 import Page1
 from page2 import Page2
@@ -20,6 +23,7 @@ class UI(tk.Tk):
         self.a_currency = 'US$'
         self.b_currency = 'US$'
         self.last_row = self.df[self.df.columns[1:]].iloc[-1]
+        self.future = get_trend('US$',self.df[self.df["Time Serie"] >= pd.to_datetime("2019")]).mean(axis=0)
         self.rating = get_rating('US$', self.df)
 
         #pages
@@ -37,6 +41,12 @@ class UI(tk.Tk):
 
         self.p1.show()
         self.main_frame.pack()
+
+    def is_positive(self,number):
+        if number > 0:
+            return "up"
+        else:
+            return "down"
 
     def create_treeview(self,root):
         treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
@@ -58,7 +68,7 @@ class UI(tk.Tk):
                     "",
                     tk.END,
                     text=i,
-                    values=("{:.3f}".format(self.last_row[i]), "18:30", self.rating.mode().at[0, i])
+                    values=("{:.3f}".format(self.last_row[i]), self.is_positive(self.future[i]), self.rating.mode().at[0, i])
                 )
 
     def update_treeview(self,treeview):

@@ -109,7 +109,7 @@ class Page2(tk.Frame):
         self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
-        self.output.config(text=self.b.get())
+        self.output.config(text="{:.3f}".format(self.b.get()))
 
     def update_currency(self, *args):
         self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']

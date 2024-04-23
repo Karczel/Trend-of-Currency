@@ -62,9 +62,12 @@ class Page1(tk.Frame):
             self.master.p2.update()
 
     def change_page(self, event):
-        self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-        self.master.p2.small_update()
-        self.master.p2.show()
+        try:
+            self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
+            self.master.p2.small_update()
+            self.master.p2.show()
+        except IndexError:
+            pass
 
     def show(self):
         self.lift()
