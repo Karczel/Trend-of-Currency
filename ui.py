@@ -1,4 +1,6 @@
 import tkinter as tk
+from tkinter import ttk
+from data_handling import*
 from page1 import Page1
 from page2 import Page2
 
@@ -17,6 +19,22 @@ class UI(tk.Tk):
         self.main_frame = tk.Frame(self)
         self.a_currency = 'US$'
         self.b_currency = 'US$'
+        self.last_row = self.df.iloc[-1]
+        self.rating = get_rating('US$', self.df)
+
+        #make treeview
+        self.treeview = ttk.Treeview(self, columns=("exchange rate", "future", "rating"))
+        self.treeview.column("#0", minwidth=100, anchor="center")
+        self.treeview.column("exchange rate", minwidth=100, anchor="center")
+        self.treeview.column("future", minwidth=100, anchor="center")
+        self.treeview.column("rating", minwidth=100, anchor="center")
+        self.treeview.heading("#0", text="Currency")
+        self.treeview.heading("exchange rate", text="Exchange Rate")
+        self.treeview.heading("future", text="Future")
+        self.treeview.heading("rating", text="Rating")
+        self.insert_treeview()
+
+        #pages
         self.p1 = Page1(self.df)
         self.p2 = Page2(self.df)
 
@@ -32,8 +50,27 @@ class UI(tk.Tk):
         self.p1.show()
         self.main_frame.pack()
 
+    def insert_treeview(self):
+        for i in self.df.columns[1:]:
+            if i != self.a_currency:
+                self.treeview.insert(
+                    "",
+                    tk.END,
+                    text=i,
+                    values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
+                )
+
+    def update_treeview(self):
+        if len(self.treeview.get_children()) > 0:
+            for child in self.treeview.get_children():
+                self.treeview.delete(child)
+                self.last_row[1:] = self.last_row[1:].div(self.last_row[self.a_currency])
+        self.rating = get_rating(self.a_currency,self.df)
+        self.insert_treeview()
+
     def loading(self):
         pass
+
 
     def run(self):
         self.mainloop()

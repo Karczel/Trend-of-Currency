@@ -12,11 +12,6 @@ class Page2(tk.Frame):
 
     def init_components(self):
         # get last row
-        self.last_row = self.df.iloc[-1]
-
-        self.a_currency = self.master.a_currency
-        self.b_currency = self.master.b_currency
-
         self.big_frame = tk.Frame(self)
         # go back button
         self.frame1 = tk.Frame(self.big_frame)
@@ -47,15 +42,7 @@ class Page2(tk.Frame):
 
         # treeview
         self.frame3 = tk.Frame(self)
-        self.treeview = ttk.Treeview(self.frame3, columns=("exchange rate", "future", "rating"))
-        self.treeview.column("#0", minwidth=1, stretch=False, anchor="center")
-        self.treeview.column("exchange rate", minwidth=1, stretch=False, anchor="center")
-        self.treeview.column("future", minwidth=1, stretch=False, anchor="center")
-        self.treeview.column("rating", minwidth=1, stretch=False, anchor="center")
-        self.treeview.heading("#0", text="Currency")
-        self.treeview.heading("exchange rate", text="Exchange Rate")
-        self.treeview.heading("future", text="Future")
-        self.treeview.heading("rating", text="Rating")
+        self.treeview = self.master.treeview
 
         # get df[last] for exchange rate,
         # currency - > column
@@ -66,16 +53,8 @@ class Page2(tk.Frame):
         # 1 other1 = other2_rate/other1_rate other2
         # future -> from year: up or down, represent with arrow
         # rating -> from get_rating
-        future = get_trend()
 
-        for i in self.df.columns[1:]:
-            if i != self.master.a_currency:
-                self.treeview.insert(
-                    "",
-                    tk.END,
-                    text=i,
-                    values=(self.last_row[i], "18:30", self.rating.mode().at[0, i])
-                )
+        # future = get_trend()
         # self.treeview.insert(
         #     "",
         #     tk.END,
@@ -118,26 +97,26 @@ class Page2(tk.Frame):
         return selected, chooser
 
     def update(self):
-        self.a_currency = self.master.a_currency
-        self.b_currency = self.master.b_currency
+        self.a_label.config(text=self.master.a_currency)
+        self.b_label.config(text=self.master.b_currency)
+        self.master.update_treeview()
+        self.update_image()
 
     def convert_handler(self, *args):
         self.update()
-        exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
+        exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         self.b.set(float(self.a.get()) * exchange_rate)
         self.output.config(text=self.b.get())
 
     def update_currency(self, *args):
         self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
         self.update()
-        exchange_rate = self.last_row[self.b_currency] / self.last_row[self.a_currency]
+        exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         try:
             self.b.set(float(self.a.get()) * exchange_rate)
             self.output.config(text=self.b.get())
         except ValueError:
             pass
-        self.b_label.config(text=self.b_currency)
-        self.update_image()
 
     def update_image(self, *args):
         # update chart/graph
