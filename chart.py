@@ -10,7 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # rating of similarity bar graph
 def similarity_bar_graph(rating_df, root):
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(4,2))
     modes = rating_df.mode().iloc[0]
     ax.bar(modes.index, modes.values)
 
@@ -39,7 +39,7 @@ def similarity_bar_graph(rating_df, root):
 
 # exchange rate line graph
 def exchange_rate_line_graph(df, currency1, currency2, root):
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(4,2))
     ax.plot(df['Time Serie'], df[currency1], label=currency1)
     ax.plot(df['Time Serie'], df[currency2], label=currency2)
 
@@ -58,7 +58,7 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
 
 # rating of similarity corr heat map
 def similarity_heatmap(rating_df, root):
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(4,2))
 
     SMALL_SIZE = 5
     MEDIUM_SIZE = 7
@@ -86,7 +86,7 @@ def similarity_heatmap(rating_df, root):
 
 # comparison histogram
 def compare_histogram(df, currency1, currency2, root):
-    fig, ax = plt.subplots(figsize=(4,3))
+    fig, ax = plt.subplots(figsize=(4,2))
     plt.hist(df[currency1], label=currency1, alpha=0.5)
     plt.hist(df[currency2], label=currency2, alpha=0.5)
 
