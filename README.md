@@ -7,7 +7,7 @@ Dataset: Foreign Exchange Rates 2000-2019
 Link: https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019
 
 
-References:
+Coding References:
 
 Pages code: https://stackoverflow.com/questions/14817210/using-buttons-in-tkinter-to-navigate-to-different-pages-of-the-application
 
@@ -23,4 +23,4 @@ Correct treeview output:https://stackoverflow.com/questions/34166030/obtaining-l
 
 Image Button:https://www.youtube.com/watch?v=6VbzpWL49Q4
 
-Chart in tkinter window:
+Charts in tkinter window:https://datatofish.com/matplotlib-charts-tkinter-gui/

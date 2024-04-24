@@ -4,14 +4,15 @@ from tkinter import ttk
 
 import pandas as pd
 from threading import Thread
+from PIL import Image
 
-from data_handling import*
+from data_handling import *
 from page1 import Page1
 from page2 import Page2
 
 
 class UI(tk.Tk):
-    def __init__(self,df):
+    def __init__(self, df):
         """initialize ui"""
         super().__init__()
         self.df = df
@@ -26,7 +27,6 @@ class UI(tk.Tk):
         self.after_load()
         self.pack_func()
 
-
     def pack_func(self):
         self.container.pack(side="top", fill="both", expand=True)
 
@@ -36,13 +36,19 @@ class UI(tk.Tk):
         self.p1.show()
         self.main_frame.pack()
 
-    def is_positive(self,number):
+    def is_positive(self, number):
         if number > 0:
-            return "up"
+            image = Image("up_arrow.png")
+            new_size = 20
+            image = image.resize((new_size, new_size))
+            return "more", image
         else:
-            return "down"
+            image = Image("down_arrow.png")
+            new_size = 20
+            image = image.resize((new_size, new_size))
+            return "less", image
 
-    def create_treeview(self,root):
+    def create_treeview(self, root):
         treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
         treeview.column("#0", minwidth=100, anchor="center")
         treeview.column("exchange rate", minwidth=100, anchor="center")
@@ -55,23 +61,25 @@ class UI(tk.Tk):
         self.insert_treeview(treeview)
         return treeview
 
-    def insert_treeview(self,treeview):
+    def insert_treeview(self, treeview):
         for i in self.df.columns[1:]:
             if i != self.a_currency:
+                word, pic = self.is_positive(self.future[i])
                 treeview.insert(
                     "",
                     tk.END,
                     text=i,
-                    values=("{:.3f}".format(self.last_row[i]), self.is_positive(self.future[i]), self.rating.mode().at[0, i])
+                    values=("{:.3f}".format(self.last_row[i]), word, self.rating.mode().at[0, i]),
+                    image=pic
                 )
 
-    def update_treeview(self,treeview):
+    def update_treeview(self, treeview):
         if len(treeview.get_children()) > 0:
             for child in treeview.get_children():
                 treeview.delete(child)
         replacement_last_row = self.last_row.div(self.last_row[self.a_currency], axis=0)
         self.last_row = replacement_last_row
-        self.rating = get_rating(self.a_currency,self.df)
+        self.rating = get_rating(self.a_currency, self.df)
         self.insert_treeview(treeview)
 
     def loading(self):
@@ -81,12 +89,11 @@ class UI(tk.Tk):
         self.future = get_trend('US$', self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
         self.rating = get_rating('US$', self.df)
 
-
     def loading_screen(self, root, task):
-        #attempt2
+        # attempt2
         # make pop-up loading thread
 
-        #make new thread for loading part
+        # make new thread for loading part
         self.loading_thread = Thread(target=task)
         self.loading_thread.start()
 
@@ -102,7 +109,6 @@ class UI(tk.Tk):
         # check if ui finished loading (thread is dead)
         root.after(10, root.check_loading)
 
-
     def check_loading(self):
         if self.loading_thread.is_alive():
             self.after(10, self.check_loading())
@@ -113,7 +119,7 @@ class UI(tk.Tk):
                 i.destroy()
             self.loading_thread.join()
 
-            #matplotlib gui outside main thread fail
+            # matplotlib gui outside main thread fail
             self.after_load()
 
             # re-pack
@@ -131,7 +137,6 @@ class UI(tk.Tk):
         # Page 2: a is fixed, treeview click is b
 
         self.container = tk.Frame(self)
-
 
     def run(self):
         self.mainloop()

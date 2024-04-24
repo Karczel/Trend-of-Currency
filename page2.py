@@ -1,4 +1,4 @@
-from PIL import Image, ImageTk
+from PIL import Image
 import tkinter as tk
 from tkinter import ttk
 import customtkinter
@@ -20,14 +20,14 @@ class Page2(tk.Frame):
         new_size = 50
 
         self.resized_image = self.img.resize((new_size, new_size))
-        self.imgtk = ImageTk.PhotoImage(self.resized_image)
+        self.imgtk = customtkinter.CTkImage(self.resized_image)
 
         self.big_frame = tk.Frame(self)
         # go back button
         self.frame1 = tk.Frame(self.big_frame)
         self.go_back = customtkinter.CTkButton(self.frame1,image=self.imgtk, text='', width=30, height=30,compound=customtkinter.LEFT, command=self.go_back)
         # graph space
-        self.canvas = similarity_bar_graph(self.rating,self.frame1)
+        self.canvas,self.fig = similarity_bar_graph(self.rating,self.frame1)
         self.canvas_choice = {'bar graph':similarity_bar_graph,
                               'line graph':exchange_rate_line_graph,
                              'Histogram':compare_histogram,
@@ -108,9 +108,9 @@ class Page2(tk.Frame):
     def update_image(self):
         self.canvas.get_tk_widget().grid_remove()
         if self.choice.get() in ['bar graph','Corr. Heatmap']:
-            self.canvas = self.canvas_choice[self.choice.get()](self.rating,self.frame1)
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating,self.frame1)
         if self.choice.get() in ['line graph','Histogram']:
-            self.canvas = self.canvas_choice[self.choice.get()](self.df,self.master.a_currency,self.master.b_currency,self.frame1)
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df,self.master.a_currency,self.master.b_currency,self.frame1)
         if self.choice.get() == 'Node Graph':
             pass
         self.canvas.get_tk_widget().grid()

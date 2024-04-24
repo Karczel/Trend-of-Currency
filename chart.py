@@ -10,7 +10,10 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # rating of similarity bar graph
 def similarity_bar_graph(rating_df, root):
-
+    try:
+        plt.close(root.fig)
+    except AttributeError:
+        pass
     SMALL_SIZE = 2
     MEDIUM_SIZE = 3
     BIGGER_SIZE = 5
@@ -23,7 +26,7 @@ def similarity_bar_graph(rating_df, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3,2))
+    fig, ax = plt.subplots(figsize=(3,2.6))
     modes = rating_df.mode().iloc[0]
     #split
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
@@ -37,11 +40,15 @@ def similarity_bar_graph(rating_df, root):
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
-    return canvas
+    return canvas, fig
 
 
 # exchange rate line graph
 def exchange_rate_line_graph(df, currency1, currency2, root):
+    try:
+        plt.close(root.fig)
+    except AttributeError:
+        pass
     SMALL_SIZE = 5
     MEDIUM_SIZE = 7
     BIGGER_SIZE = 8
@@ -68,11 +75,15 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
-    return canvas
+    return canvas, fig
 
 
 # rating of similarity corr heat map
 def similarity_heatmap(rating_df, root):
+    try:
+        plt.close(root.fig)
+    except AttributeError:
+        pass
     SMALL_SIZE = 2
     MEDIUM_SIZE = 3
     BIGGER_SIZE = 5
@@ -96,12 +107,15 @@ def similarity_heatmap(rating_df, root):
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
-    return canvas
+    return canvas, fig
 
 
 # comparison histogram
 def compare_histogram(df, currency1, currency2, root):
-
+    try:
+        plt.close(root.fig)
+    except AttributeError:
+        pass
     SMALL_SIZE = 5
     MEDIUM_SIZE = 7
     BIGGER_SIZE = 8
@@ -124,4 +138,4 @@ def compare_histogram(df, currency1, currency2, root):
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
-    return canvas
+    return canvas, fig
