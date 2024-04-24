@@ -10,7 +10,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 # rating of similarity bar graph
 def similarity_bar_graph(rating_df, root):
-    fig, ax = plt.subplots(figsize=(4,4))
+    fig, ax = plt.subplots(figsize=(4,3))
     modes = rating_df.mode().iloc[0]
     ax.bar(modes.index, modes.values)
 
@@ -20,9 +20,9 @@ def similarity_bar_graph(rating_df, root):
 
     plt.xticks(rotation=45, ha='right')
 
-    SMALL_SIZE = 2
-    MEDIUM_SIZE = 3
-    BIGGER_SIZE = 5
+    SMALL_SIZE = 5
+    MEDIUM_SIZE = 7
+    BIGGER_SIZE = 8
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
     plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
@@ -39,7 +39,7 @@ def similarity_bar_graph(rating_df, root):
 
 # exchange rate line graph
 def exchange_rate_line_graph(df, currency1, currency2, root):
-    fig, ax = plt.subplots(figsize=(4,4))
+    fig, ax = plt.subplots(figsize=(4,3))
     ax.plot(df['Time Serie'], df[currency1], label=currency1)
     ax.plot(df['Time Serie'], df[currency2], label=currency2)
 
@@ -58,11 +58,11 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
 
 # rating of similarity corr heat map
 def similarity_heatmap(rating_df, root):
-    fig, ax = plt.subplots(figsize=(4,4))
+    fig, ax = plt.subplots(figsize=(4,3))
 
-    SMALL_SIZE = 2
-    MEDIUM_SIZE = 3
-    BIGGER_SIZE = 5
+    SMALL_SIZE = 5
+    MEDIUM_SIZE = 7
+    BIGGER_SIZE = 8
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
     plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
@@ -86,7 +86,7 @@ def similarity_heatmap(rating_df, root):
 
 # comparison histogram
 def compare_histogram(df, currency1, currency2, root):
-    fig, ax = plt.subplots(figsize=(4,4))
+    fig, ax = plt.subplots(figsize=(4,3))
     plt.hist(df[currency1], label=currency1, alpha=0.5)
     plt.hist(df[currency2], label=currency2, alpha=0.5)
 
@@ -94,9 +94,9 @@ def compare_histogram(df, currency1, currency2, root):
     plt.title(f'Frequencyies of {currency1} and {currency2}')
     plt.ylabel('Frequency')
 
-    SMALL_SIZE = 2
-    MEDIUM_SIZE = 3
-    BIGGER_SIZE = 5
+    SMALL_SIZE = 5
+    MEDIUM_SIZE = 7
+    BIGGER_SIZE = 8
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
     plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
