@@ -28,12 +28,12 @@ class Page2(tk.Frame):
         self.go_back = customtkinter.CTkButton(self.frame1,image=self.imgtk, text='', width=30, height=30,compound=customtkinter.LEFT, command=self.go_back)
         # graph space
         self.canvas = similarity_bar_graph(self.rating,self.frame1)
-        self.canvas_choice = {'bar graph':similarity_bar_graph(self.rating,self.frame1),
-                              'line graph':exchange_rate_line_graph(self.df,self.master.a_currency,self.master.b_currency,self.frame1),
-                             'Histogram':compare_histogram(self.df,self.master.a_currency,self.master.b_currency,self.frame1),
-                             'Corr. Heatmap':similarity_heatmap(self.rating,self.frame1),
-                             'Node Graph':'empty at the moment'}
-
+        self.canvas_choice = {'bar graph':similarity_bar_graph,
+                              'line graph':exchange_rate_line_graph,
+                             'Histogram':compare_histogram,
+                             'Corr. Heatmap':similarity_heatmap,
+                             'Node Graph': "to be updated"}
+        # *node to be replaced
         self.frame2 = tk.Frame(self.big_frame)
         #choose graph
         self.display = ['bar graph', 'line graph', 'Histogram', 'Corr. Heatmap', 'Node Graph']
@@ -56,26 +56,11 @@ class Page2(tk.Frame):
         self.lst = []
 
         # treeview
-        self.frame3 = tk.Frame(self)
         self.treeview = self.master.create_treeview(self)
 
         self.treeview.bind("<<TreeviewSelect>>", self.update_currency)
 
-        # layout
-        padding = {'padx': 10, 'pady': 10}
-        self.go_back.pack(anchor="nw" ,side="left")
-        self.canvas.get_tk_widget().pack()
-        self.frame1.pack(fill=tk.X, expand=True)
-        self.chooser.pack()
-        self.a_field.pack(side="left")
-        self.a_label.pack(side="left")
-        self.equal_label.pack(side="left")
-        self.output.pack(side="left")
-        self.b_label.pack(side="left")
-        self.frame2.pack(fill=tk.X, expand=True)
-        self.big_frame.pack(side="left", fill=tk.X, expand=True)
-        self.treeview.pack(anchor="w", fill=tk.Y, side="right")
-        self.frame3.pack(anchor="w", fill=tk.Y, side="right")
+        self.grid_func()
 
     def load_functions(self, frame, lst,function):
         """Load units of the requested unittype into the comboboxes."""
@@ -86,7 +71,7 @@ class Page2(tk.Frame):
         # and select which unit to display
         chooser['values'] = lst
         chooser.current(newindex=0)
-        chooser.bind('<<ComboboxSelected>>')
+        chooser.bind('<<ComboboxSelected>>',function)
         return selected, chooser
 
     def small_update(self):
@@ -106,6 +91,7 @@ class Page2(tk.Frame):
             self.output.config(text="{:.3f}".format(float(self.b.get())),fg='black')
         except ValueError:
             self.output.config(text="ERROR",fg='red')
+
     def update_currency(self, *args):
         try:
             self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
@@ -120,8 +106,54 @@ class Page2(tk.Frame):
             self.output.config(text="ERROR", fg='red')
 
     def update_image(self):
-        self.canvas = self.canvas_choice[self.choice.get()]
-        pass
+        self.canvas.get_tk_widget().grid_remove()
+        if self.choice.get() in ['bar graph','Corr. Heatmap']:
+            self.canvas = self.canvas_choice[self.choice.get()](self.rating,self.frame1)
+        if self.choice.get() in ['line graph','Histogram']:
+            self.canvas = self.canvas_choice[self.choice.get()](self.df,self.master.a_currency,self.master.b_currency,self.frame1)
+        if self.choice.get() == 'Node Graph':
+            pass
+        self.canvas.get_tk_widget().grid()
+
+    def grid_func(self):
+        #frame 1
+        for i in range(3):
+            self.frame1.rowconfigure(i,weight=1)
+        for j in range(3):
+            self.frame1.columnconfigure(i, weight=1)
+
+        #frame2
+        for i in range(3):
+            self.frame2.rowconfigure(i, weight=1)
+        for j in range(3):
+            self.frame2.columnconfigure(i, weight=1)
+
+        #bigframe
+        for i in range(3):
+            self.big_frame.rowconfigure(i, weight=1)
+        for j in range(3):
+            self.big_frame.columnconfigure(i, weight=1)
+
+        #self
+        for i in range(3):
+            self.rowconfigure(i, weight=1)
+        for j in range(3):
+            self.columnconfigure(i, weight=1)
+
+        # layout
+        padding = {'padx': 10, 'pady': 10}
+        self.go_back.grid(row=0, column=0, sticky="nw", **padding)
+        self.canvas.get_tk_widget().grid(row=0, column=1, **padding)
+        self.frame1.grid(row=0, column=0, sticky="ew", **padding)
+        self.chooser.grid(row=1, column=0, sticky="w", **padding)
+        self.a_field.grid(row=0, column=0, sticky="w", **padding)
+        self.a_label.grid(row=0, column=1, sticky="w", **padding)
+        self.equal_label.grid(row=0, column=2, sticky="w", **padding)
+        self.output.grid(row=1, column=1, sticky="w", **padding)
+        self.b_label.grid(row=1, column=2, sticky="w", **padding)
+        self.frame2.grid(row=2, column=0, sticky="ew", **padding)
+        self.big_frame.grid(row=0, column=0, sticky="ew", **padding)
+        self.treeview.grid(row=0, column=1, sticky="nsew")
 
     def go_back(self):
         self.master.p1.show()

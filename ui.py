@@ -21,8 +21,10 @@ class UI(tk.Tk):
         self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
-        self.loading_screen(self, self.loading)
-
+        # self.loading_screen(self, self.loading)
+        self.loading()
+        self.after_load()
+        self.pack_func()
 
 
     def pack_func(self):
