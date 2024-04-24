@@ -95,7 +95,6 @@ class Page2(tk.Frame):
     def update_currency(self, *args):
         try:
             self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-            self.small_update()
         except IndexError:
             pass
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
@@ -104,6 +103,7 @@ class Page2(tk.Frame):
             self.output.config(text="{:.3f}".format(float(self.b.get())),fg='black')
         except ValueError:
             self.output.config(text="ERROR", fg='red')
+        self.small_update()
 
     def update_image(self):
         self.canvas.get_tk_widget().grid_remove()
@@ -146,9 +146,9 @@ class Page2(tk.Frame):
         self.canvas.get_tk_widget().grid(row=0, column=1, **padding)
         self.frame1.grid(row=0, column=0, sticky="ew", **padding)
         self.chooser.grid(row=1, column=0, sticky="w", **padding)
-        self.a_field.grid(row=0, column=0, sticky="w", **padding)
-        self.a_label.grid(row=0, column=1, sticky="w", **padding)
-        self.equal_label.grid(row=0, column=2, sticky="w", **padding)
+        self.a_field.grid(row=0, column=1, sticky="w", **padding)
+        self.a_label.grid(row=0, column=2, sticky="w", **padding)
+        self.equal_label.grid(row=1, column=0, sticky="w", **padding)
         self.output.grid(row=1, column=1, sticky="w", **padding)
         self.b_label.grid(row=1, column=2, sticky="w", **padding)
         self.frame2.grid(row=2, column=0, sticky="ew", **padding)

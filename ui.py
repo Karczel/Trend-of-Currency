@@ -78,7 +78,7 @@ class UI(tk.Tk):
         self.a_currency = 'US$'
         self.b_currency = 'US$'
         self.last_row = self.df[self.df.columns[1:]].iloc[-1]
-        self.future = get_trend('US$', self.df[self.df["Time Serie"] >= pd.to_datetime("2019")]).mean(axis=0)
+        self.future = get_trend('US$', self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
         self.rating = get_rating('US$', self.df)
 
 
