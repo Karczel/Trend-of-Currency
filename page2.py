@@ -11,7 +11,7 @@ class Page2(tk.Frame):
     def __init__(self, df, **kwargs):
         super().__init__()
         self.df = df
-        self.rating = get_rating('US$', self.df)
+        self.rating = self.master.rating
         self.init_components()
 
     def init_components(self):

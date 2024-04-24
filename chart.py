@@ -22,9 +22,9 @@ def similarity_bar_graph(rating_df, root):
 
     plt.xticks(rotation=45, ha='right')
 
-    SMALL_SIZE = 5
-    MEDIUM_SIZE = 7
-    BIGGER_SIZE = 8
+    SMALL_SIZE = 3
+    MEDIUM_SIZE = 3
+    BIGGER_SIZE = 5
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
     plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
@@ -62,9 +62,9 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
 def similarity_heatmap(rating_df, root):
     fig, ax = plt.subplots(figsize=(4,2))
 
-    SMALL_SIZE = 5
-    MEDIUM_SIZE = 7
-    BIGGER_SIZE = 8
+    SMALL_SIZE = 2
+    MEDIUM_SIZE = 3
+    BIGGER_SIZE = 5
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
     plt.rc('axes', titlesize=SMALL_SIZE)  # fontsize of the axes title
