@@ -12,7 +12,9 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 def similarity_bar_graph(rating_df, root):
     fig, ax = plt.subplots(figsize=(4,2))
     modes = rating_df.mode().iloc[0]
-    ax.bar(modes.index, modes.values)
+    #split
+    x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
+    ax.bar(x, modes.values)
 
     ax.set_xlabel('Currency')
     ax.set_ylabel('Rating')

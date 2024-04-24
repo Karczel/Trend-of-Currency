@@ -83,6 +83,9 @@ class UI(tk.Tk):
 
 
     def loading_screen(self, root, task):
+        #attempt2
+        # make pop-up loading thread
+
         #make new thread for loading part
         self.loading_thread = Thread(target=task)
         self.loading_thread.start()
