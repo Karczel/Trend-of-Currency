@@ -35,9 +35,9 @@ class UI(tk.Tk):
 
     def is_positive(self, number):
         if number > 0:
-            return "more"
+            return ">"
         else:
-            return "less"
+            return "<"
 
     def create_treeview(self, root):
         treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))

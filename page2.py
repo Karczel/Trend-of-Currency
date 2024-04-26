@@ -112,7 +112,7 @@ class Page2(tk.Frame):
         if self.choice.get() in ['line graph','Histogram']:
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df,self.master.a_currency,self.master.b_currency,self.frame1)
         if self.choice.get() == 'Node Graph':
-            self.canvas, self.fig = self.canvas_choice[self.choice.get()](draw_edge(self.rating.mode(),self.master.a_currency),self.frame1)
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](draw_edge(self.rating.mode(),self.master.a_currency),self.master.a_currency,self.frame1)
         self.canvas.get_tk_widget().grid()
 
     def grid_func(self):
