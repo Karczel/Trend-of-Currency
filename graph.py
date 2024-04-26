@@ -16,16 +16,11 @@ def draw_edge(ratings,currency1):
                     G.add_edge(currency1, col1, weight=weight)
     return G
 
-def is_component(G):
-    components = set()
+def is_component(G,node):
     visited = set()
-    for node in G.nodes():
-        if node not in visited:
-            component = set()
-            dfs(node, G, visited, component)
-            for i in component:
-                components.add(i)
-    return components
+    component = set()
+    dfs(node, G, visited, component)
+    return component
 
 def dfs(node, G, visited, component):
     visited.add(node)
@@ -46,8 +41,7 @@ def draw_graph(G,main_node,root):
     # pos = nx.circular_layout(G)
     # nx.draw(G, pos,ax=a,with_labels=True,node_size=700)
 
-    nodes_with_edges = is_component(G) -{main_node}
-    # print(nodes_with_edges)
+    nodes_with_edges = is_component(G,main_node)
     subgraph = G.subgraph(nodes_with_edges)
     pos = nx.circular_layout(subgraph)
     pos[main_node] = np.array([0, 0])
