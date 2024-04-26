@@ -4,11 +4,6 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
-# making charts part
-
-# all functions to draw graphs
-
-# rating of similarity bar graph
 def similarity_bar_graph(rating_df, root):
     try:
         plt.close(root.fig)
@@ -26,7 +21,7 @@ def similarity_bar_graph(rating_df, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3,2.6))
+    fig, ax = plt.subplots(figsize=(3,2.7))
     modes = rating_df.mode().iloc[0]
     #split
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]

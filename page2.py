@@ -32,7 +32,7 @@ class Page2(tk.Frame):
                               'line graph':exchange_rate_line_graph,
                              'Histogram':compare_histogram,
                              'Corr. Heatmap':similarity_heatmap,
-                             'Node Graph': "to be updated"}
+                             'Node Graph': draw_graph}
         # *node to be replaced
         self.frame2 = tk.Frame(self.big_frame)
         #choose graph
@@ -112,7 +112,7 @@ class Page2(tk.Frame):
         if self.choice.get() in ['line graph','Histogram']:
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df,self.master.a_currency,self.master.b_currency,self.frame1)
         if self.choice.get() == 'Node Graph':
-            pass
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](draw_edge(self.rating.mode(),self.master.a_currency),self.frame1)
         self.canvas.get_tk_widget().grid()
 
     def grid_func(self):

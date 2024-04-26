@@ -1,10 +1,7 @@
-import time
 import tkinter as tk
 from tkinter import ttk
 
-import pandas as pd
 from threading import Thread
-from PIL import Image
 
 from data_handling import *
 from page1 import Page1
@@ -38,15 +35,9 @@ class UI(tk.Tk):
 
     def is_positive(self, number):
         if number > 0:
-            image = Image("up_arrow.png")
-            new_size = 20
-            image = image.resize((new_size, new_size))
-            return "more", image
+            return "more"
         else:
-            image = Image("down_arrow.png")
-            new_size = 20
-            image = image.resize((new_size, new_size))
-            return "less", image
+            return "less"
 
     def create_treeview(self, root):
         treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
@@ -64,13 +55,12 @@ class UI(tk.Tk):
     def insert_treeview(self, treeview):
         for i in self.df.columns[1:]:
             if i != self.a_currency:
-                word, pic = self.is_positive(self.future[i])
                 treeview.insert(
                     "",
                     tk.END,
                     text=i,
-                    values=("{:.3f}".format(self.last_row[i]), word, self.rating.mode().at[0, i]),
-                    image=pic
+                    values=(
+                    "{:.3f}".format(self.last_row[i]), self.is_positive(self.future[i]), self.rating.mode().at[0, i])
                 )
 
     def update_treeview(self, treeview):
@@ -83,11 +73,11 @@ class UI(tk.Tk):
         self.insert_treeview(treeview)
 
     def loading(self):
-        self.a_currency = 'US$'
-        self.b_currency = 'US$'
+        self.a_currency = self.df.columns[1]
+        self.b_currency = self.df.columns[1]
         self.last_row = self.df[self.df.columns[1:]].iloc[-1]
-        self.future = get_trend('US$', self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
-        self.rating = get_rating('US$', self.df)
+        self.future = get_trend(self.a_currency, self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
+        self.rating = get_rating(self.a_currency, self.df)
 
     def loading_screen(self, root, task):
         # attempt2
