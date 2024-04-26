@@ -23,7 +23,6 @@ def similarity_bar_graph(rating_df, root):
 
     fig, ax = plt.subplots(figsize=(3,2.7))
     modes = rating_df.mode().iloc[0]
-    #split
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
     ax.bar(x, modes.values)
 

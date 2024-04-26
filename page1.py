@@ -5,7 +5,7 @@ from data_handling import get_rating
 
 
 class Page1(tk.Frame):
-    def __init__(self,df, **kwargs):
+    def __init__(self, df, **kwargs):
         super().__init__()
         self.df = df
         self.init_components()
@@ -14,35 +14,36 @@ class Page1(tk.Frame):
 
         self.frame1 = tk.Frame(self)
         self.display = list(self.df.columns[1:])
-        self.choice, self.chooser = self.load_functions(self.frame1,self.display,self.update_currency)
+        self.choice, self.chooser = self.load_functions(self.frame1, self.display, self.update_currency)
 
         self.treeview = self.master.create_treeview(self)
 
-        #bind
+        # bind
         self.treeview.bind("<<TreeviewSelect>>", self.change_page)
 
-        #layout
+        # layout
         self.chooser.pack()
         self.frame1.pack()
         self.treeview.pack(fill=tk.BOTH, expand=True)
 
-    def load_functions(self, frame,lst,function):
+    def load_functions(self, frame, lst, function):
         """Load units of the requested unittype into the comboboxes."""
-        #completed loading function
+        # completed loading function
         selected = tk.StringVar()
         # put the unit names (strings) in the comboboxes
-        chooser = ttk.Combobox(frame, state='readonly',textvariable=selected, font=('Times New Roman', 25, 'normal'), postcommand=function)
+        chooser = ttk.Combobox(frame, state='readonly', textvariable=selected, font=('Times New Roman', 25, 'normal'),
+                               postcommand=function)
         # and select which unit to display
         chooser['values'] = lst
         chooser.current(newindex=0)
-        chooser.bind('<<ComboboxSelected>>',function)
+        chooser.bind('<<ComboboxSelected>>', function)
         return selected, chooser
 
-    def filter_currency(self,list1,list2):
+    def filter_currency(self, list1, list2):
         return list(filter(lambda x: list1[x] in list2, range(len(list1))))
 
-    def update_currency(self,*args):
-        #update treeview only when different from prev
+    def update_currency(self, *args):
+        # update treeview only when different from prev
         if self.choice.get() != self.master.a_currency:
             self.master.a_currency = self.choice.get()
             self.master.update_treeview(self.treeview)
