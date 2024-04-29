@@ -87,7 +87,6 @@ class Page2(tk.Frame):
         self.c_lst.remove(self.master.a_currency)
         self.c_lst.remove(self.master.b_currency)
         self.c_chooser['values'] = self.c_lst
-        self.c_chooser.current(newindex=0)
         self.update_image()
 
     def update(self):

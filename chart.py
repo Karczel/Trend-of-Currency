@@ -6,7 +6,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 def similarity_bar_graph(rating_df, root):
     try:
-        plt.close()
+        plt.close(root.fig)
     except AttributeError:
         pass
     SMALL_SIZE = 2
@@ -40,7 +40,7 @@ def similarity_bar_graph(rating_df, root):
 # exchange rate line graph
 def exchange_rate_line_graph(df, currency1, currency2, root):
     try:
-        plt.close()
+        plt.close(root.fig)
     except AttributeError:
         pass
     SMALL_SIZE = 5
@@ -75,7 +75,7 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
 # rating of similarity corr heat map
 def similarity_heatmap(rating_df, root):
     try:
-        plt.close()
+        plt.close(root.fig)
     except AttributeError:
         pass
     SMALL_SIZE = 2
@@ -107,7 +107,7 @@ def similarity_heatmap(rating_df, root):
 # comparison histogram
 def compare_histogram(df, currency1, currency2, root):
     try:
-        plt.close()
+        plt.close(root.fig)
     except AttributeError:
         pass
     SMALL_SIZE = 5
