@@ -21,7 +21,7 @@ def similarity_bar_graph(rating_df, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3.25,2.7))
+    fig, ax = plt.subplots(figsize=(3.1,2.7))
     modes = rating_df.mode().iloc[0]
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
     ax.bar(x, modes.values)
@@ -55,7 +55,7 @@ def exchange_rate_line_graph(df, currency1, currency2, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3,2))
+    fig, ax = plt.subplots(figsize=(3.1,2.7))
     ax.plot(df['Time Serie'], df[currency1], label=currency1)
     ax.plot(df['Time Serie'], df[currency2], label=currency2)
 
@@ -78,8 +78,8 @@ def similarity_heatmap(rating_df, root):
         plt.close(root.fig)
     except AttributeError:
         pass
-    SMALL_SIZE = 2
-    MEDIUM_SIZE = 3
+    SMALL_SIZE = 3
+    MEDIUM_SIZE = 4
     BIGGER_SIZE = 5
 
     plt.rc('font', size=SMALL_SIZE)  # controls default text sizes
@@ -90,7 +90,7 @@ def similarity_heatmap(rating_df, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3.25,2.7))
+    fig, ax = plt.subplots(figsize=(3.1,2.7))
 
     sns.heatmap(rating_df[rating_df.columns[1:]].corr(),
                 square=True,
@@ -122,7 +122,7 @@ def compare_histogram(df, currency1, currency2, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3.25,2.7))
+    fig, ax = plt.subplots(figsize=(3.1,2.7))
     plt.hist(df[currency1], label=currency1, alpha=0.5)
     plt.hist(df[currency2], label=currency2, alpha=0.5)
 

@@ -169,6 +169,7 @@ class Page2(tk.Frame):
         self.treeview.grid(row=0, column=1, sticky="nsew")
 
     def go_back(self):
+        self.treeview.selection_set(())
         self.master.p1.show()
 
     def show(self):
