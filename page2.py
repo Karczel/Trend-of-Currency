@@ -10,7 +10,7 @@ from graph import *
 class Page2(tk.Frame):
     def __init__(self, df, **kwargs):
         super().__init__()
-        self.df = df
+        self.df = self.master.df
         self.rating = self.master.rating
         self.init_components()
 
@@ -38,7 +38,15 @@ class Page2(tk.Frame):
         self.frame2 = tk.Frame(self.big_frame)
         # choose graph
         self.display = ['bar graph', 'line graph', 'Histogram', 'Corr. Heatmap', 'Node Graph']
-        self.choice, self.chooser = self.load_functions(self.big_frame, self.display, self.update_currency)
+
+        self.frame1_1 = tk.Frame(self.big_frame)
+
+        self.choice, self.chooser = self.load_functions(self.frame1_1, self.display, self.update_currency)
+        # choose c currency
+        self.c_lst = list(self.df.columns[1:])
+        self.c_lst.remove(self.master.a_currency)
+        self.c_lst.remove(self.master.b_currency)
+        self.c_choice,self.c_chooser = self.load_functions(self.frame1_1,self.c_lst,self.update_currency)
 
         # exchange
         self.a = tk.StringVar()
@@ -52,9 +60,6 @@ class Page2(tk.Frame):
 
         # Enter bind
         self.a_field.bind('<Return>', self.convert_handler)
-
-        # lst for different graphs
-        self.lst = []
 
         # treeview
         self.treeview = self.master.create_treeview(self)
@@ -78,6 +83,11 @@ class Page2(tk.Frame):
     def small_update(self):
         self.a_label.config(text=self.master.a_currency)
         self.b_label.config(text=self.master.b_currency)
+        self.c_lst = list(self.df.columns[1:])
+        self.c_lst.remove(self.master.a_currency)
+        self.c_lst.remove(self.master.b_currency)
+        self.c_chooser['values'] = self.c_lst
+        self.c_chooser.current(newindex=0)
         self.update_image()
 
     def update(self):
@@ -85,7 +95,6 @@ class Page2(tk.Frame):
         self.master.update_treeview(self.treeview)
 
     def convert_handler(self, *args):
-        self.small_update()
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
         try:
             self.b.set(float(self.a.get()) * exchange_rate)
@@ -93,28 +102,24 @@ class Page2(tk.Frame):
         except ValueError:
             if self.a_field.get() == "":
                 self.output.config(text="Enter value", fg='black')
-            self.output.config(text="ERROR", fg='red')
+            else:
+                self.output.config(text="ERROR", fg='red')
+        self.small_update()
 
     def update_currency(self, *args):
         try:
             self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
         except IndexError:
             pass
-        exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
-        try:
-            self.b.set(float(self.a.get()) * exchange_rate)
-            self.output.config(text="{:.3f}".format(float(self.b.get())), fg='black')
-        except ValueError:
-            self.output.config(text="ERROR", fg='red')
-        self.small_update()
+        self.convert_handler()
 
     def update_image(self):
         self.canvas.get_tk_widget().grid_remove()
         if self.choice.get() in ['bar graph', 'Corr. Heatmap']:
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating, self.frame1)
         if self.choice.get() in ['line graph', 'Histogram']:
-            self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.a_currency,
-                                                                          self.master.b_currency, self.frame1)
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.b_currency,
+                                                                          self.c_choice.get(), self.frame1)
         if self.choice.get() == 'Node Graph':
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](
                 draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
@@ -150,7 +155,9 @@ class Page2(tk.Frame):
         self.go_back.grid(row=0, column=0, sticky="nw", **padding)
         self.canvas.get_tk_widget().grid(row=0, column=1, **padding)
         self.frame1.grid(row=0, column=0, sticky="ew", **padding)
-        self.chooser.grid(row=1, column=0, sticky="w", **padding)
+        self.frame1_1.grid(row=1, column=0, sticky="w", **padding)
+        self.chooser.grid(row=0, column=0, sticky="w", **padding)
+        self.c_chooser.grid(row=0, column=1, sticky="w", **padding)
         self.a_field.grid(row=0, column=1, sticky="w", **padding)
         self.a_label.grid(row=0, column=2, sticky="w", **padding)
         self.equal_label.grid(row=1, column=0, sticky="w", **padding)

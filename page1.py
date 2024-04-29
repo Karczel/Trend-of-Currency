@@ -23,6 +23,7 @@ class Page1(tk.Frame):
 
         # layout
         self.chooser.pack()
+
         self.frame1.pack()
         self.treeview.pack(fill=tk.BOTH, expand=True)
 

@@ -35,9 +35,9 @@ class UI(tk.Tk):
 
     def is_positive(self, number):
         if number > 0:
-            return ">"
+            return "> (increase)"
         else:
-            return "<"
+            return "< (decrease)"
 
     def create_treeview(self, root):
         treeview = ttk.Treeview(root, columns=("exchange rate", "future", "rating"))
@@ -67,14 +67,16 @@ class UI(tk.Tk):
         if len(treeview.get_children()) > 0:
             for child in treeview.get_children():
                 treeview.delete(child)
-        replacement_last_row = self.last_row.div(self.last_row[self.a_currency], axis=0)
-        self.last_row = replacement_last_row
+        # replacement_last_row = self.last_row.div(self.last_row[self.a_currency], axis=0)
+        # self.last_row = replacement_last_row
+        self.df.iloc[:, 1:] = self.df.iloc[:, 1:].div(self.df[self.a_currency], axis=0)
+        self.last_row = self.df[self.df.columns[1:]].iloc[-1]
         self.rating = get_rating(self.a_currency, self.df)
         self.insert_treeview(treeview)
 
     def loading(self):
         self.a_currency = self.df.columns[1]
-        self.b_currency = self.df.columns[1]
+        self.b_currency = self.df.columns[2]
         self.last_row = self.df[self.df.columns[1:]].iloc[-1]
         self.future = get_trend(self.a_currency, self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
         self.rating = get_rating(self.a_currency, self.df)
