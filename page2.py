@@ -28,7 +28,7 @@ class Page2(tk.Frame):
         self.go_back = customtkinter.CTkButton(self.frame1, image=self.imgtk, text='', width=30, height=30,
                                                compound=customtkinter.LEFT, command=self.go_back)
         # graph space
-        self.canvas, self.fig = similarity_bar_graph(self.rating, self.frame1)
+        self.canvas, self.fig = similarity_bar_graph(self.master.a_currency,self.rating, self.frame1)
         self.canvas_choice = {'bar graph': similarity_bar_graph,
                               'line graph': exchange_rate_line_graph,
                               'Histogram': compare_histogram,
@@ -116,7 +116,9 @@ class Page2(tk.Frame):
 
     def update_image(self):
         self.canvas.get_tk_widget().grid_remove()
-        if self.choice.get() in ['bar graph', 'Corr. Heatmap']:
+        if self.choice.get() in ['bar graph']:
+            self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.rating, self.frame1)
+        if self.choice.get() in ['Corr. Heatmap']:
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating, self.frame1)
         if self.choice.get() in ['line graph', 'Histogram']:
             self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.b_currency,
