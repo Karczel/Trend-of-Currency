@@ -30,7 +30,7 @@ def similarity_bar_graph(rating_df, root):
     ax.set_ylabel('Rating')
     ax.set_title('Currencies similarity ratings')
 
-    plt.xticks(rotation=45, ha='right')
+    plt.xticks(rotation=30, ha='right')
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
