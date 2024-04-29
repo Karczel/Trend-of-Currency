@@ -38,6 +38,14 @@ def draw_graph(G,main_node,root):
     fig = Figure(figsize=(12,10),dpi=50)
     a = fig.add_subplot(111)
 
+    old_labels = {node: str(node) for node in G.nodes}
+
+    for node, label in old_labels.items():
+        if ' - ' in str(label):
+            old_labels[node] = str(label).split(' - ')[1]
+
+    G = nx.relabel_nodes(G, old_labels)
+
     # pos = nx.circular_layout(G)
     # nx.draw(G, pos,ax=a,with_labels=True,node_size=700)
 
@@ -45,7 +53,7 @@ def draw_graph(G,main_node,root):
     subgraph = G.subgraph(nodes_with_edges)
     pos = nx.circular_layout(subgraph)
     pos[main_node] = np.array([0, 0])
-    nx.draw(subgraph, pos, ax=a, with_labels=True, node_size=700)
+    nx.draw(subgraph, pos, ax=a, with_labels=True, node_size=700,node_color="yellow")
 
     edge = nx.get_edge_attributes(G, 'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge,ax=a,font_color='blue',font_size=18)
