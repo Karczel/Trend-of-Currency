@@ -115,21 +115,24 @@ class Page2(tk.Frame):
         self.convert_handler()
 
     def update_image(self):
-        if self.past_choice != self.choice.get():
-            self.canvas.get_tk_widget().grid_remove()
-            self.past_choice = self.choice.get()
-            if self.choice.get() in ['bar graph']:
-                self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.rating,
-                                                                              self.frame1)
-            if self.choice.get() in ['Corr. Heatmap']:
-                self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating, self.frame1)
-            if self.choice.get() in ['line graph', 'Histogram']:
-                self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.b_currency,
-                                                                              self.c_choice.get(), self.frame1)
-            if self.choice.get() == 'Node Graph':
-                self.canvas, self.fig = self.canvas_choice[self.choice.get()](
-                    draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
-            self.canvas.get_tk_widget().grid()
+        try:
+            if self.past_choice != self.choice.get():
+                self.canvas.get_tk_widget().grid_remove()
+                self.past_choice = self.choice.get()
+                if self.choice.get() in ['bar graph']:
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.rating,
+                                                                                  self.frame1)
+                if self.choice.get() in ['Corr. Heatmap']:
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating, self.frame1)
+                if self.choice.get() in ['line graph', 'Histogram']:
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.b_currency,
+                                                                                  self.c_choice.get(), self.frame1)
+                if self.choice.get() == 'Node Graph':
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](
+                        draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
+                self.canvas.get_tk_widget().grid()
+        except AttributeError:
+            pass
 
     def grid_func(self):
         # frame 1
