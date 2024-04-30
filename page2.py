@@ -116,8 +116,13 @@ class Page2(tk.Frame):
 
     def update_image(self):
         try:
+            try:
+                a = bool(self.past_b_currency == self.treeview.item(self.treeview.selection()[0])['text'])
+            except IndexError:
+                a = False
             if self.past_choice != self.choice.get() \
-                    or self.past_c_choice != self.c_choice.get():
+                    or self.past_c_choice != self.c_choice.get() \
+                    or a:
                 self.canvas.get_tk_widget().grid_remove()
                 self.past_choice = self.choice.get()
                 self.past_c_choice = self.c_choice.get()
@@ -137,6 +142,10 @@ class Page2(tk.Frame):
             pass
         self.past_choice = self.choice.get()
         self.past_c_choice = self.c_choice.get()
+        try:
+            self.past_b_currency = self.treeview.item(self.treeview.selection()[0])['text']
+        except IndexError:
+            pass
 
     def grid_func(self):
         # frame 1
