@@ -87,7 +87,7 @@ class Page2(tk.Frame):
         self.c_lst.remove(self.master.a_currency)
         self.c_lst.remove(self.master.b_currency)
         self.c_chooser['values'] = self.c_lst
-        if self.c_choice == self.master.b_currency:
+        if self.c_choice.get() == self.master.b_currency:
             self.c_chooser.current(newindex=0)
         self.update_image()
 
@@ -110,16 +110,15 @@ class Page2(tk.Frame):
     def update_currency(self, *args):
         try:
             self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
+            self.small_update()
         except IndexError:
             pass
         self.convert_handler()
 
     def update_image(self):
         try:
-            try:
-                a = bool(self.past_b_currency == self.treeview.item(self.treeview.selection()[0])['text'])
-            except IndexError:
-                a = False
+            a = bool(self.past_b_currency == self.master.b_currency)
+
             if self.past_choice != self.choice.get() \
                     or self.past_c_choice != self.c_choice.get() \
                     or a:
@@ -142,10 +141,7 @@ class Page2(tk.Frame):
             pass
         self.past_choice = self.choice.get()
         self.past_c_choice = self.c_choice.get()
-        try:
-            self.past_b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-        except IndexError:
-            pass
+        self.past_b_currency = self.master.b_currency
 
     def grid_func(self):
         # frame 1
