@@ -24,6 +24,7 @@ def similarity_bar_graph(currency1, rating_df, root):
     fig, ax = plt.subplots(figsize=(3.1, 2.7))
     modes = (rating_df.loc[:, rating_df.columns != currency1]).mode().iloc[0]
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
+    # x = [i.replace(" ", "\n") if " " in i else i for  i in x]
     ax.bar(x, modes.values)
 
     ax.set_xlabel('Currency')
@@ -94,8 +95,13 @@ def similarity_heatmap(rating_df, root):
     plt.rc('legend', fontsize=SMALL_SIZE)  # legend fontsize
     plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
-    fig, ax = plt.subplots(figsize=(3.1, 2.7))
+    plt.title(f'Correlation Heat map of ratings of similarity')
+    plt.yticks(rotation=30, ha='right')
+    plt.xticks(rotation=20, ha='right')
+
+    fig, ax = plt.subplots(figsize=(3.2, 2.7))
     x = [i.split(' - ')[1] if ' - ' in i else i for i in rating_df.columns]
+    x = [i.replace(" ", "\n") if " " in i else i for  i in x]
     sns.heatmap(rating_df[rating_df.columns].corr(),
                 square=True,
                 linewidths=0.25,

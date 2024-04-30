@@ -116,9 +116,11 @@ class Page2(tk.Frame):
 
     def update_image(self):
         try:
-            if self.past_choice != self.choice.get():
+            if self.past_choice != self.choice.get() \
+                    and self.past_c_choice != self.c_choice.get():
                 self.canvas.get_tk_widget().grid_remove()
                 self.past_choice = self.choice.get()
+                self.past_c_choice = self.c_choice.get()
                 if self.choice.get() in ['bar graph']:
                     self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.rating,
                                                                                   self.frame1)
@@ -132,8 +134,10 @@ class Page2(tk.Frame):
                         draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
                 self.canvas.get_tk_widget().grid()
         except AttributeError:
-            self.past_choice = self.choice.get()
-
+            pass
+        self.past_choice = self.choice.get()
+        self.past_c_choice = self.c_choice.get()
+        
     def grid_func(self):
         # frame 1
         for i in range(3):
