@@ -43,6 +43,8 @@ def draw_graph(G,main_node,root):
     for node, label in old_labels.items():
         if ' - ' in str(label):
             old_labels[node] = str(label).split(' - ')[1]
+        if " " in old_labels[node]:
+            old_labels[node] = str(label).replace(" ", "\n")
 
     G = nx.relabel_nodes(G, old_labels)
 
