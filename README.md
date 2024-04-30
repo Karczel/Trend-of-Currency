@@ -2,6 +2,14 @@
 
 Ui to see similarity in currency trend to see connections between each currency
 
+How to run:
+Go to Project directory
+Install all requirements in requirements.txt:
+pip install -r requirements.txt
+
+run app.py in your Python virtual environment:
+python3 app.py
+
 Dataset: Foreign Exchange Rates 2000-2019
 
 Link: https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019
