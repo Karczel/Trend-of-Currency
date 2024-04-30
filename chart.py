@@ -25,13 +25,13 @@ def similarity_bar_graph(currency1, rating_df, root):
     modes = (rating_df.loc[:, rating_df.columns != currency1]).mode().iloc[0]
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
     x = [i.replace(" ", "\n") if " " in i else i for  i in x]
-    ax.bar(x, modes.values)
+    ax.barh(x, modes.values)
 
     ax.set_xlabel('Currency')
     ax.set_ylabel('Rating')
     ax.set_title(f'Currencies similarity ratings compared to {currency1}')
 
-    plt.xticks(rotation=90, ha='right')
+    # plt.xticks(rotation=90, ha='right')
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
