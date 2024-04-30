@@ -132,7 +132,7 @@ class Page2(tk.Frame):
                         draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
                 self.canvas.get_tk_widget().grid()
         except AttributeError:
-            pass
+            self.past_choice = self.choice.get()
 
     def grid_func(self):
         # frame 1
