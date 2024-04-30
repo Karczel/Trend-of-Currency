@@ -35,14 +35,16 @@ def draw_graph(G,main_node,root):
         plt.close(root.fig)
     except AttributeError:
         pass
-    fig = Figure(figsize=(12,10),dpi=50)
+    fig = Figure(figsize=(10,10),dpi=50)
     a = fig.add_subplot(111)
 
     old_labels = {node: str(node) for node in G.nodes}
 
     for node, label in old_labels.items():
-        if ' - ' in str(label):
+        if '-' in str(label):
             old_labels[node] = str(label).split(' - ')[1]
+        if "  " in old_labels[node]:
+            old_labels[node] = str(label).replace("  ", " ")
         if " " in old_labels[node]:
             old_labels[node] = str(label).replace(" ", "\n")
 
