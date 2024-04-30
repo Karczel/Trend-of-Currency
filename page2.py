@@ -117,7 +117,7 @@ class Page2(tk.Frame):
     def update_image(self):
         try:
             if self.past_choice != self.choice.get() \
-                    and self.past_c_choice != self.c_choice.get():
+                    or self.past_c_choice != self.c_choice.get():
                 self.canvas.get_tk_widget().grid_remove()
                 self.past_choice = self.choice.get()
                 self.past_c_choice = self.c_choice.get()
@@ -137,7 +137,7 @@ class Page2(tk.Frame):
             pass
         self.past_choice = self.choice.get()
         self.past_c_choice = self.c_choice.get()
-        
+
     def grid_func(self):
         # frame 1
         for i in range(3):
