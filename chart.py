@@ -1,4 +1,4 @@
-import pandas as pd
+import numpy as np
 import seaborn as sns
 import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
@@ -25,7 +25,10 @@ def similarity_bar_graph(currency1, rating_df, root):
     modes = (rating_df.loc[:, rating_df.columns != currency1]).mode().iloc[0]
     x = [i.split(' - ')[1] if ' - ' in i else i for i in modes.index]
     x = [i.replace(" ", "\n") if " " in i else i for  i in x]
-    ax.barh(x, modes.values)
+    y = modes.values
+    ax.barh(x, y)
+
+    plt.xticks(np.linspace(-2, 2, 5))
 
     ax.set_xlabel('Currency')
     ax.set_ylabel('Rating')

@@ -166,7 +166,7 @@ class Page2(tk.Frame):
         # layout
         padding = {'padx': 10, 'pady': 10}
         self.go_back.grid(row=0, column=0, sticky="nw", **padding)
-        self.canvas.get_tk_widget().grid(row=0, column=1, **padding)
+        self.canvas.get_tk_widget().grid(row=1, column=0, **padding)
         self.frame1.grid(row=0, column=0, sticky="ew", **padding)
         self.frame1_1.grid(row=1, column=0, sticky="w", **padding)
         self.chooser.grid(row=0, column=0, sticky="w", **padding)
