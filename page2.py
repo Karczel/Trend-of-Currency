@@ -84,13 +84,14 @@ class Page2(tk.Frame):
         self.c_lst.remove(self.master.a_currency)
         self.c_lst.remove(self.master.b_currency)
         self.c_chooser['values'] = self.c_lst
-        if self.c_choice.get() == self.master.b_currency:
+        if self.c_choice.get() == self.master.a_currency \
+                or self.c_choice.get() == self.master.b_currency:
             self.c_chooser.current(newindex=0)
         self.update_image()
 
     def update(self):
-        self.small_update()
         self.master.update_treeview(self.treeview)
+        self.small_update()
 
     def convert_handler(self, *args):
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]
