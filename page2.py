@@ -2,16 +2,13 @@ from PIL import Image
 import tkinter as tk
 from tkinter import ttk
 import customtkinter
-from data_handling import *
 from chart import *
 from graph import *
 
 
 class Page2(tk.Frame):
-    def __init__(self, df, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
-        self.df = self.master.df
-        self.rating = self.master.rating
         self.init_components()
 
     def init_components(self):
@@ -28,7 +25,7 @@ class Page2(tk.Frame):
         self.go_back = customtkinter.CTkButton(self.frame1, image=self.imgtk, text='', width=30, height=30,
                                                compound=customtkinter.LEFT, command=self.go_back)
         # graph space
-        self.canvas, self.fig = similarity_bar_graph(self.master.a_currency,self.rating, self.frame1)
+        self.canvas, self.fig = similarity_bar_graph(self.master.a_currency,self.master.rating, self.frame1)
         self.canvas_choice = {'bar graph': similarity_bar_graph,
                               'line graph': exchange_rate_line_graph,
                               'Histogram': compare_histogram,
@@ -43,7 +40,7 @@ class Page2(tk.Frame):
 
         self.choice, self.chooser = self.load_functions(self.frame1_1, self.display, self.update_currency)
         # choose c currency
-        self.c_lst = list(self.df.columns[1:])
+        self.c_lst = list(self.master.df.columns[1:])
         self.c_lst.remove(self.master.a_currency)
         self.c_lst.remove(self.master.b_currency)
         self.c_choice,self.c_chooser = self.load_functions(self.frame1_1,self.c_lst,self.update_currency)
@@ -83,7 +80,7 @@ class Page2(tk.Frame):
     def small_update(self):
         self.a_label.config(text=self.master.a_currency)
         self.b_label.config(text=self.master.b_currency)
-        self.c_lst = list(self.df.columns[1:])
+        self.c_lst = list(self.master.df.columns[1:])
         self.c_lst.remove(self.master.a_currency)
         self.c_lst.remove(self.master.b_currency)
         self.c_chooser['values'] = self.c_lst
@@ -126,16 +123,16 @@ class Page2(tk.Frame):
                 self.past_choice = self.choice.get()
                 self.past_c_choice = self.c_choice.get()
                 if self.choice.get() in ['bar graph']:
-                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.rating,
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.a_currency, self.master.rating,
                                                                                   self.frame1)
                 if self.choice.get() in ['Corr. Heatmap']:
-                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.rating, self.frame1)
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.rating, self.frame1)
                 if self.choice.get() in ['line graph', 'Histogram']:
-                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.df, self.master.b_currency,
+                    self.canvas, self.fig = self.canvas_choice[self.choice.get()](self.master.df, self.master.b_currency,
                                                                                   self.c_choice.get(), self.frame1)
                 if self.choice.get() == 'Node Graph':
                     self.canvas, self.fig = self.canvas_choice[self.choice.get()](
-                        draw_edge(self.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
+                        draw_edge(self.master.rating.mode(), self.master.a_currency), self.master.a_currency, self.frame1)
                 self.canvas.get_tk_widget().grid()
         except AttributeError:
             pass
