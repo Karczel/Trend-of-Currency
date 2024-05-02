@@ -17,6 +17,10 @@ def draw_edge(ratings,currency1):
     return G
 
 def is_component(G,node):
+    if ' - ' in node:
+        node = node.split(' - ')[1]
+    if " " in node:
+        node = node.replace(" ", "\n")
     visited = set()
     component = set()
     dfs(node, G, visited, component)
@@ -50,6 +54,10 @@ def draw_graph(G,main_node,root):
 
     # pos = nx.circular_layout(G)
     # nx.draw(G, pos,ax=a,with_labels=True,node_size=700)
+    if ' - ' in main_node:
+        main_node = main_node.split(' - ')[1]
+    if " " in main_node:
+        main_node = main_node.replace(" ", "\n")
 
     nodes_with_edges = is_component(G,main_node)
     subgraph = G.subgraph(nodes_with_edges)

@@ -1,19 +1,16 @@
 import tkinter as tk
 from tkinter import ttk
-from math import *
-from data_handling import get_rating
 
 
 class Page1(tk.Frame):
-    def __init__(self, df, **kwargs):
+    def __init__(self, **kwargs):
         super().__init__()
-        self.df = df
         self.init_components()
 
     def init_components(self):
 
         self.frame1 = tk.Frame(self)
-        self.display = list(self.df.columns[1:])
+        self.display = list(self.master.df.columns[1:])
         self.choice, self.chooser = self.load_functions(self.frame1, self.display, self.update_currency)
 
         self.treeview = self.master.create_treeview(self)
