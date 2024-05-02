@@ -122,8 +122,8 @@ class UI(tk.Tk):
 
     def after_load(self):
         # pages
-        self.p1 = Page1(self.df)
-        self.p2 = Page2(self.df)
+        self.p1 = Page1()
+        self.p2 = Page2()
 
         # Page 1 :combobox selected is a, treeview click is b
         # Page 2: a is fixed, treeview click is b
