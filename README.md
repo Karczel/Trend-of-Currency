@@ -5,6 +5,10 @@ Ui to see similarity in currency trend to see connections between each currency
 ## Note:
 if tk combobox choices went beyond window span, 
 move the tk screen down so that it will display combobox choices upwards instead of downwards.
+
+## How to install
+
+
 ### There are 2 places that will require some time to load:
 * Open for the first time per session.
 * Changing the main currency in first page.
@@ -14,15 +18,28 @@ But other than that, other features shouldn't take longer than a minute.
 Go to Project directory:
 cd <cloned project directory>
 
+Create a virtual environment:
+Mac:
+python -m venv env
+
+Windows:
+.\env\Scripts\activate (concept)
+. env/bin/activate
+
 Install all requirements in requirements.txt:
 pip install -r requirements.txt
 
 run app.py in your Python virtual environment:
 python3 app.py
 
-Dataset: Foreign Exchange Rates 2000-2019
+## References to project documents.  This is a section with links to wiki docs. Include links to:
+* Project Proposal
+* Development Plan - what you will do each week and a milestone for that week's work
+* UML diagrams of the design
 
-Link: [https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019]
+## References
+
+Dataset: Foreign Exchange Rates 2000-2019[https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019]
 
 
 Coding References:
