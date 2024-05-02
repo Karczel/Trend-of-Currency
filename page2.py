@@ -80,9 +80,12 @@ class Page2(tk.Frame):
     def small_update(self):
         self.a_label.config(text=self.master.a_currency)
         self.b_label.config(text=self.master.b_currency)
-        self.c_lst = list(self.master.df.columns[1:])
-        self.c_lst.remove(self.master.a_currency)
-        self.c_lst.remove(self.master.b_currency)
+        self.c_lst = list(self.master.rating.columns[1:])
+        try:
+            self.c_lst.remove(self.master.a_currency)
+            self.c_lst.remove(self.master.b_currency)
+        except ValueError:
+            pass
         self.c_chooser['values'] = self.c_lst
         if self.c_choice.get() == self.master.b_currency:
             self.c_chooser.current(newindex=0)

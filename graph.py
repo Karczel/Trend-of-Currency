@@ -63,7 +63,7 @@ def draw_graph(G,main_node,root):
     subgraph = G.subgraph(nodes_with_edges)
     pos = nx.circular_layout(subgraph)
     pos[main_node] = np.array([0, 0])
-    nx.draw(subgraph, pos, ax=a, with_labels=True, node_size=700,node_color="yellow")
+    nx.draw(subgraph, pos, ax=a, with_labels=True, node_size=2000,node_color="yellow")
 
     edge = nx.get_edge_attributes(G, 'weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge,ax=a,font_color='blue',font_size=18)
