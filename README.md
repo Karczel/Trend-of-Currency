@@ -21,8 +21,8 @@ git clone https://github.com/Karczel/Trend-of-Currency
 ``` 
 cd <cloned project directory>
  ```
-to get <cloned project directory>;
-*Image guide*
+to get ```<cloned project directory>```;
+find your cloned project and get its directory from its properties.
 
 ### Create a virtual environment: <br/>
 Mac: <br/>
