@@ -12,27 +12,39 @@ But other than that, other features shouldn't take longer than a minute.
 
 ## How to install
 In your terminal, do the following: <br/>
-git clone https://github.com/Karczel/Trend-of-Currency <br/>
+``` 
+git clone https://github.com/Karczel/Trend-of-Currency
+ ```
 
 ## How to run:
 ### Go to Project directory: <br/>
-cd <cloned project directory> <br/>
+``` 
+cd <cloned project directory>
+ ```
 to get <cloned project directory>;
 *Image guide*
 
 ### Create a virtual environment: <br/>
 Mac: <br/>
-python -m venv env <br/>
+``` 
+python -m venv env
+ ```
 
 Windows: <br/>
-.\env\Scripts\activate (concept) <br/>
-. env/bin/activate <br/>
+```
+.\env\Scripts\activate (concept)
+. env/bin/activate
+```
 
 ### Install all requirements in requirements.txt: <br/>
-pip install -r requirements.txt<br/>
+``` 
+pip install -r requirements.txt
+ ```
 
 ### run app.py in your Python virtual environment:<br/>
-python3 app.py<br/>
+```
+python3 app.py
+```
 
 ## References to project documents.  This is a section with links to wiki docs. Include links to:
 * Project Proposal
@@ -41,11 +53,11 @@ python3 app.py<br/>
 
 ## References
 
-Dataset: <br/>
+### Dataset: <br/>
 [Foreign Exchange Rates 2000-2019](https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019)<br/>
 
 
-Coding References:<br/>
+### Coding References:<br/>
 
 [Pages code](https://stackoverflow.com/questions/14817210/using-buttons-in-tkinter-to-navigate-to-different-pages-of-the-application)<br/>
 
