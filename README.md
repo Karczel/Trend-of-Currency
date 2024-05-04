@@ -3,34 +3,36 @@
 Ui to see similarity in currency trend to see connections between each currency
 
 ## Note:
-if tk combobox choices went beyond window span, 
-move the tk screen down so that it will display combobox choices upwards instead of downwards.
-
-## How to install
-
-
+if tk combobox choices went beyond window span,  <br/>
+move the tk screen down so that it will display combobox choices upwards instead of downwards. <br/>
 ### There are 2 places that will require some time to load:
 * Open for the first time per session.
 * Changing the main currency in first page.
 But other than that, other features shouldn't take longer than a minute.
 
+## How to install
+In your terminal, do the following: <br/>
+git clone https://github.com/Karczel/Trend-of-Currency <br/>
+
 ## How to run:
-Go to Project directory:
-cd <cloned project directory>
+### Go to Project directory: <br/>
+cd <cloned project directory> <br/>
+to get <cloned project directory>;
+*Image guide*
 
-Create a virtual environment:
-Mac:
-python -m venv env
+### Create a virtual environment: <br/>
+Mac: <br/>
+python -m venv env <br/>
 
-Windows:
-.\env\Scripts\activate (concept)
-. env/bin/activate
+Windows: <br/>
+.\env\Scripts\activate (concept) <br/>
+. env/bin/activate <br/>
 
-Install all requirements in requirements.txt:
-pip install -r requirements.txt
+### Install all requirements in requirements.txt: <br/>
+pip install -r requirements.txt<br/>
 
-run app.py in your Python virtual environment:
-python3 app.py
+### run app.py in your Python virtual environment:<br/>
+python3 app.py<br/>
 
 ## References to project documents.  This is a section with links to wiki docs. Include links to:
 * Project Proposal
@@ -39,23 +41,24 @@ python3 app.py
 
 ## References
 
-Dataset: [Foreign Exchange Rates 2000-2019](https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019)
+Dataset: <br/>
+[Foreign Exchange Rates 2000-2019](https://www.kaggle.com/datasets/brunotly/foreign-exchange-rates-per-dollar-20002019)<br/>
 
 
-Coding References:
+Coding References:<br/>
 
-[Pages code](https://stackoverflow.com/questions/14817210/using-buttons-in-tkinter-to-navigate-to-different-pages-of-the-application)
+[Pages code](https://stackoverflow.com/questions/14817210/using-buttons-in-tkinter-to-navigate-to-different-pages-of-the-application)<br/>
 
-[Rolling slope code](https://stackoverflow.com/questions/42138357/pandas-rolling-slope-calculation)
+[Rolling slope code](https://stackoverflow.com/questions/42138357/pandas-rolling-slope-calculation)<br/>
 
-[Tree column](https://stackoverflow.com/questions/44331033/python-tkinter-treeview-column-sizes)
+[Tree column](https://stackoverflow.com/questions/44331033/python-tkinter-treeview-column-sizes)<br/>
 
-[Linked tree view](https://stackoverflow.com/questions/61404261/tkinter-selecting-an-item-from-a-treeview-using-single-click-instead-of-double)
+[Linked tree view](https://stackoverflow.com/questions/61404261/tkinter-selecting-an-item-from-a-treeview-using-single-click-instead-of-double)<br/>
 
-[Draw graph](https://matplotlib.org/2.0.2/examples/user_interfaces/embedding_in_tk.html)
+[Draw graph](https://matplotlib.org/2.0.2/examples/user_interfaces/embedding_in_tk.html)<br/>
 
-[Correct treeview output](https://stackoverflow.com/questions/34166030/obtaining-last-value-of-dataframe-column-without-index)
+[Correct treeview output](https://stackoverflow.com/questions/34166030/obtaining-last-value-of-dataframe-column-without-index)<br/>
 
-[Image Button](https://www.youtube.com/watch?v=6VbzpWL49Q4)
+[Image Button](https://www.youtube.com/watch?v=6VbzpWL49Q4)<br/>
 
-[Charts in tkinter window](https://datatofish.com/matplotlib-charts-tkinter-gui/)
+[Charts in tkinter window](https://datatofish.com/matplotlib-charts-tkinter-gui/)<br/>
