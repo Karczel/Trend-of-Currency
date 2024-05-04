@@ -33,6 +33,8 @@ python -m venv env
 Windows: <br/>
 ```
 .\env\Scripts\activate (concept)
+```
+```
 . env/bin/activate
 ```
 
