@@ -48,10 +48,10 @@ pip install -r requirements.txt
 python3 app.py
 ```
 
-## References to project documents.  This is a section with links to wiki docs. Include links to:
-* Project Proposal
-* Development Plan - what you will do each week and a milestone for that week's work
-* UML diagrams of the design
+## References to project documents:
+* [Project Proposal]()
+* [Development Plan - what you will do each week and a milestone for that week's work]()
+* [UML diagrams of the design]()
 
 ## References
 
