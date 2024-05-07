@@ -76,3 +76,5 @@ python3 app.py
 [Image Button](https://www.youtube.com/watch?v=6VbzpWL49Q4)<br/>
 
 [Charts in tkinter window](https://datatofish.com/matplotlib-charts-tkinter-gui/)<br/>
+
+[Node Graphs](https://networkx.org/documentation/stable/reference/index.html)<br/>
