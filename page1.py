@@ -37,9 +37,6 @@ class Page1(tk.Frame):
         chooser.bind('<<ComboboxSelected>>', function)
         return selected, chooser
 
-    def filter_currency(self, list1, list2):
-        return list(filter(lambda x: list1[x] in list2, range(len(list1))))
-
     def update_currency(self, *args):
         # update treeview only when different from prev
         if self.choice.get() != self.master.a_currency:
