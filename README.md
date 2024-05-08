@@ -8,7 +8,7 @@ move the tk screen down so that it will display combobox choices upwards instead
 ### There are 2 places that will require some time to load:
 * Open for the first time per session.
 * Changing the main currency in first page.
-But other than that, other features shouldn't take longer than a minute.
+But other than that, other features shouldn't take longer than 5 minutes.
 
 ## How to install
 In your terminal, do the following: <br/>
