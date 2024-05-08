@@ -49,9 +49,10 @@ python3 app.py
 ```
 
 ## References to project documents:
-* [Project Proposal]()
-* [Development Plan - what you will do each week and a milestone for that week's work]()
-* [UML diagrams of the design]()
+* [Project Proposal](https://github.com/Karczel/Trend-of-Currency/wiki/Project-proposal)
+* [Development Plans](https://github.com/Karczel/Trend-of-Currency/wiki/Development-plans)
+* [UML diagrams of the design](https://github.com/Karczel/Trend-of-Currency/wiki/Design-Documents-and-UML-Diagrams)
+* [How to install and run](https://github.com/Karczel/Trend-of-Currency/wiki/How-to-install-and-run)
 
 ## References
 
