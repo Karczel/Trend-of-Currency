@@ -8,7 +8,7 @@ move the tk screen down so that it will display combobox choices upwards instead
 ### There are 2 places that will require some time to load:
 * Open for the first time per session.
 * Changing the main currency in first page.
-But other than that, other features shouldn't take longer than a minute.
+But other than that, other features shouldn't take longer than 5 minutes.
 
 ## How to install
 In your terminal, do the following: <br/>
@@ -49,9 +49,10 @@ python3 app.py
 ```
 
 ## References to project documents:
-* [Project Proposal]()
-* [Development Plan - what you will do each week and a milestone for that week's work]()
-* [UML diagrams of the design]()
+* [Project Proposal](https://github.com/Karczel/Trend-of-Currency/wiki/Project-proposal)
+* [Development Plans](https://github.com/Karczel/Trend-of-Currency/wiki/Development-plans)
+* [UML diagrams of the design](https://github.com/Karczel/Trend-of-Currency/wiki/Design-Documents-and-UML-Diagrams)
+* [How to install and run](https://github.com/Karczel/Trend-of-Currency/wiki/How-to-install-and-run)
 
 ## References
 
