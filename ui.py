@@ -19,6 +19,7 @@ class UI(tk.Tk):
         self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
+        #lift loading screen and run animation in thread
         # self.loading_screen(self, self.loading)
         self.loading()
         self.after_load()
@@ -82,16 +83,10 @@ class UI(tk.Tk):
         self.rating = get_rating(self.a_currency, self.df)
 
     def loading_screen(self, root, task):
-        # attempt2
-        # make pop-up loading thread
-
         # make new thread for loading part
         self.loading_thread = Thread(target=task)
         self.loading_thread.start()
 
-        # clear ui (clear pack)
-        for i in root.pack_slaves():
-            i.pack_forget()
         # make loading screen
         root.bar = ttk.Progressbar(root, length=500, mode="indeterminate")
         root.bar.pack(fill="none", expand=True)
