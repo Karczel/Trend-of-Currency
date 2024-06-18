@@ -6,6 +6,7 @@ from threading import Thread
 from data_handling import *
 from page1 import Page1
 from page2 import Page2
+from loading_screen import LoadingScreen
 
 
 class UI(tk.Tk):
@@ -20,10 +21,28 @@ class UI(tk.Tk):
 
         self.main_frame = tk.Frame(self)
         #lift loading screen and run animation in thread
-        # self.loading_screen(self, self.loading)
-        self.loading()
-        self.after_load()
+        self.loading_screen = LoadingScreen()
+        #run loading screen animation in thread
+
+        self.loading_screen.show()
+
+        self.a_currency = self.df.columns[1]
+        self.b_currency = self.df.columns[2]
+        self.last_row = self.df[self.df.columns[1:]].iloc[-1]
+        self.future = get_trend(self.a_currency, self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
+        self.rating = get_rating(self.a_currency, self.df)
+
+        # pages
+        self.p1 = Page1()
+        self.p2 = Page2()
+
+        # Page 1 :combobox selected is a, treeview click is b
+        # Page 2: a is fixed, treeview click is b
+
+        self.container = tk.Frame(self)
         self.pack_func()
+        # Stop loading screen animation
+        # self.stop_event.set()
 
     def pack_func(self):
         self.container.pack(side="top", fill="both", expand=True)
@@ -75,55 +94,6 @@ class UI(tk.Tk):
         self.rating = get_rating(self.a_currency, self.df)
         self.insert_treeview(treeview)
 
-    def loading(self):
-        self.a_currency = self.df.columns[1]
-        self.b_currency = self.df.columns[2]
-        self.last_row = self.df[self.df.columns[1:]].iloc[-1]
-        self.future = get_trend(self.a_currency, self.df[self.df["Time Serie"] >= pd.to_datetime("2016")]).mean(axis=0)
-        self.rating = get_rating(self.a_currency, self.df)
-
-    def loading_screen(self, root, task):
-        # make new thread for loading part
-        self.loading_thread = Thread(target=task)
-        self.loading_thread.start()
-
-        # make loading screen
-        root.bar = ttk.Progressbar(root, length=500, mode="indeterminate")
-        root.bar.pack(fill="none", expand=True)
-        # run loading screen
-        root.bar.start()
-
-        # check if ui finished loading (thread is dead)
-        root.after(10, root.check_loading)
-
-    def check_loading(self):
-        if self.loading_thread.is_alive():
-            self.after(10, self.check_loading())
-        else:
-            self.bar.stop()
-            # clear loading screen (destroy)
-            for i in self.pack_slaves():
-                i.destroy()
-            self.loading_thread.join()
-
-            # matplotlib gui outside main thread fail
-            self.after_load()
-
-            # re-pack
-            try:
-                self.pack_func()
-            except AttributeError:
-                pass
-
-    def after_load(self):
-        # pages
-        self.p1 = Page1()
-        self.p2 = Page2()
-
-        # Page 1 :combobox selected is a, treeview click is b
-        # Page 2: a is fixed, treeview click is b
-
-        self.container = tk.Frame(self)
 
     def run(self):
         self.mainloop()
