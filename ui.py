@@ -24,6 +24,9 @@ class UI(tk.Tk):
         self.loading_screen = LoadingScreen()
         #run loading screen animation in thread
 
+        self.container.pack(side="top", fill="both", expand=True)
+        self.loading_screen.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
+
         self.loading_screen.show()
 
         self.a_currency = self.df.columns[1]
@@ -40,18 +43,16 @@ class UI(tk.Tk):
         # Page 2: a is fixed, treeview click is b
 
         self.container = tk.Frame(self)
-        self.pack_func()
-        # Stop loading screen animation
-        # self.stop_event.set()
-
-    def pack_func(self):
-        self.container.pack(side="top", fill="both", expand=True)
 
         self.p1.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
         self.p2.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
 
         self.p1.show()
         self.main_frame.pack()
+
+        # Stop loading screen animation
+        # self.stop_event.set()
+        self.p1.show()
 
     def is_positive(self, number):
         if number > 0:
@@ -94,6 +95,11 @@ class UI(tk.Tk):
         self.rating = get_rating(self.a_currency, self.df)
         self.insert_treeview(treeview)
 
+    def start_load(self):
+        pass
+
+    def stop_load(self):
+        pass
 
     def run(self):
         self.mainloop()

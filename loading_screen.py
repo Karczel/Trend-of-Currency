@@ -9,6 +9,7 @@ class LoadingScreen(tk.Frame):
 
     def init_components(self):
         pass
+
         # bind
 
 
