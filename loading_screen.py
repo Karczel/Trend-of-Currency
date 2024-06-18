@@ -15,15 +15,15 @@ class LoadingScreen(tk.Frame):
         # layout
 
 
-    def loading_animation(self, root, task):
+    def loading_animation(self):
         # make loading screen
-        root.bar = ttk.Progressbar(root, length=500, mode="indeterminate")
-        root.bar.pack(fill="none", expand=True)
+        self.master.bar = ttk.Progressbar(self.master, length=500, mode="indeterminate")
+        self.master.bar.pack(fill="none", expand=True)
         # run loading screen
-        root.bar.start()
+        self.master.bar.start()
 
         # check if ui finished loading (thread is dead)
-        root.after(10, root.check_loading)
+        self.master.after(10, self.master.check_loading)
 
     def check_loading(self):
         if self.loading_thread.is_alive():
@@ -43,14 +43,6 @@ class LoadingScreen(tk.Frame):
                 self.pack_func()
             except AttributeError:
                 pass
-
-    def change_page(self, event):
-        try:
-            self.master.b_currency = self.treeview.item(self.treeview.selection()[0])['text']
-            self.master.p2.small_update()
-            self.master.p2.show()
-        except IndexError:
-            pass
 
     def show(self):
         self.lift()
