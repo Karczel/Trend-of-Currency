@@ -82,7 +82,10 @@ class Page2(tk.Frame):
         self.b_label.config(text=self.master.b_currency)
         self.c_lst = list(self.master.df.columns[1:])
         self.c_lst.remove(self.master.a_currency)
-        self.c_lst.remove(self.master.b_currency)
+        try:
+            self.c_lst.remove(self.master.b_currency)
+        except ValueError:
+            pass
         self.c_chooser['values'] = self.c_lst
         if self.c_choice.get() == self.master.a_currency \
                 or self.c_choice.get() == self.master.b_currency:
@@ -90,8 +93,11 @@ class Page2(tk.Frame):
         self.update_image()
 
     def update(self):
+        self.master.loading_screen.start_load()
         self.master.update_treeview(self.treeview)
         self.small_update()
+        self.master.loading_screen.status.set()
+        self.show()
 
     def convert_handler(self, *args):
         exchange_rate = self.master.last_row[self.master.b_currency] / self.master.last_row[self.master.a_currency]

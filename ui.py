@@ -1,8 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
 
-from threading import Thread
-
 from data_handling import *
 from page1 import Page1
 from page2 import Page2
@@ -20,14 +18,17 @@ class UI(tk.Tk):
         self.wm_geometry("1500x800")
 
         self.main_frame = tk.Frame(self)
-        #lift loading screen and run animation in thread
-        self.loading_screen = LoadingScreen()
-        #run loading screen animation in thread
+
+        self.container = tk.Frame(self)
+
+        self.loading_screen = LoadingScreen(self)
 
         self.container.pack(side="top", fill="both", expand=True)
         self.loading_screen.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
 
-        self.loading_screen.show()
+        #it doesn't show up yet bc it hasn't started running, but cannot put loading content in after either
+        #so this is proof of concept, usable after running
+        self.loading_screen.start_load()
 
         self.a_currency = self.df.columns[1]
         self.b_currency = self.df.columns[2]
@@ -42,16 +43,15 @@ class UI(tk.Tk):
         # Page 1 :combobox selected is a, treeview click is b
         # Page 2: a is fixed, treeview click is b
 
-        self.container = tk.Frame(self)
 
         self.p1.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
         self.p2.place(in_=self.container, x=0, y=0, relwidth=1, relheight=1)
 
-        self.p1.show()
         self.main_frame.pack()
 
         # Stop loading screen animation
-        # self.stop_event.set()
+        self.loading_screen.status.set()
+
         self.p1.show()
 
     def is_positive(self, number):
@@ -94,12 +94,6 @@ class UI(tk.Tk):
         self.last_row = self.df[self.df.columns[1:]].iloc[-1]
         self.rating = get_rating(self.a_currency, self.df)
         self.insert_treeview(treeview)
-
-    def start_load(self):
-        pass
-
-    def stop_load(self):
-        pass
 
     def run(self):
         self.mainloop()
