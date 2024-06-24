@@ -28,10 +28,10 @@ class LoadingScreen(tk.Frame):
     def start_load(self):
         # run loading screen
         self.status.clear()
-        self.bar.start(10)
+        self.bar.start()
+        self.show()
         self.loading_thread = Thread(target=self.loading_animation)
         self.loading_thread.start()
-        self.show()
 
     def show(self):
         self.lift()
