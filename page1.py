@@ -40,6 +40,7 @@ class Page1(tk.Frame):
     def update_currency(self, *args):
         # update treeview only when different from prev
         if self.choice.get() != self.master.a_currency:
+            self.master.loading_screen.show()
             self.master.loading_screen.start_load()
             self.master.a_currency = self.choice.get()
             self.master.update_treeview(self.treeview)

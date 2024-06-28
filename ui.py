@@ -28,6 +28,7 @@ class UI(tk.Tk):
 
         #it doesn't show up yet bc it hasn't started running, but cannot put loading content in after either
         #so this is proof of concept, usable after running
+        self.loading_screen.show()
         self.loading_screen.start_load()
 
         self.a_currency = self.df.columns[1]

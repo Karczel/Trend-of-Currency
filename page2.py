@@ -93,6 +93,7 @@ class Page2(tk.Frame):
         self.update_image()
 
     def update(self):
+        self.master.loading_screen.show()
         self.master.loading_screen.start_load()
         self.master.update_treeview(self.treeview)
         self.small_update()
